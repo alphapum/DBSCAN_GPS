@@ -17,551 +17,471 @@
     --border: #1e293b;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    overflow-x: hidden;
-  }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; overflow-x: hidden; }
 
   /* ── Hero ── */
-  #hero {
-    position: relative;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background: radial-gradient(ellipse at 50% 60%, #0f2150 0%, #0a0e1a 70%);
-  }
+  #hero { position: relative; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; background: radial-gradient(ellipse at 50% 60%, #0f2150 0%, #0a0e1a 70%); }
   #hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .hero-text {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    pointer-events: none;
-  }
-  .hero-text h1 {
-    font-size: clamp(2rem, 5vw, 4rem);
-    font-weight: 800;
-    background: linear-gradient(135deg, #60a5fa, #34d399);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: .5rem;
-  }
-  .hero-text p {
-    font-size: 1.1rem;
-    color: #94a3b8;
-    max-width: 600px;
-  }
-  .scroll-hint {
-    position: absolute;
-    bottom: 2rem;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: .4rem;
-    color: #475569;
-    font-size: .85rem;
-    animation: bounce 2s infinite;
-  }
+  .hero-text { position: relative; z-index: 10; text-align: center; pointer-events: none; }
+  .hero-text h1 { font-size: clamp(2rem, 5vw, 3.8rem); font-weight: 800; background: linear-gradient(135deg, #60a5fa, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: .5rem; }
+  .hero-text p { font-size: 1.05rem; color: #94a3b8; max-width: 600px; }
+  .scroll-hint { position: absolute; bottom: 2rem; z-index: 10; display: flex; flex-direction: column; align-items: center; gap: .4rem; color: #475569; font-size: .85rem; animation: bounce 2s infinite; }
   @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
 
-  /* ── Sections ── */
-  section {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 5rem 1.5rem;
-  }
-  .section-label {
-    font-size: .75rem;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: .5rem;
-  }
-  h2 {
-    font-size: clamp(1.6rem, 3vw, 2.4rem);
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
-  .lead {
-    color: #94a3b8;
-    font-size: 1.05rem;
-    max-width: 700px;
-    line-height: 1.8;
-    margin-bottom: 2.5rem;
-  }
+  /* ── Layout ── */
+  section { max-width: 1100px; margin: 0 auto; padding: 4rem 1.5rem; }
+  .section-label { font-size: .75rem; letter-spacing: .15em; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem; }
+  h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 700; margin-bottom: 1rem; }
+  .lead { color: #94a3b8; font-size: 1.05rem; max-width: 720px; line-height: 1.8; margin-bottom: 2rem; }
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 0 1.5rem; }
 
-  /* ── Cards grid ── */
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+  /* ── Upload Zone ── */
+  #upload-zone {
+    background: linear-gradient(135deg, #0c1628 0%, #0f1f3d 100%);
+    border-top: 1px solid #1e3a5f;
+    border-bottom: 1px solid #1e3a5f;
+    padding: 0;
   }
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 1rem;
-    padding: 1.5rem;
-    transition: transform .25s, box-shadow .25s;
-  }
-  .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(59,130,246,.15);
-  }
-  .card-icon {
-    font-size: 2rem;
-    margin-bottom: .75rem;
-  }
-  .card h3 { font-size: 1.1rem; margin-bottom: .5rem; }
-  .card p { color: #94a3b8; font-size: .9rem; line-height: 1.7; }
-
-  /* ── Pipeline steps ── */
-  .pipeline {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0;
-    margin: 2rem 0;
-  }
-  .pipe-step {
-    flex: 1;
-    min-width: 140px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: .75rem;
-    padding: 1.2rem 1rem;
+  #upload-zone section { padding: 4rem 1.5rem; }
+  .drop-area {
+    border: 2px dashed #2563eb;
+    border-radius: 1.25rem;
+    padding: 3rem 2rem;
     text-align: center;
+    cursor: pointer;
+    transition: background .25s, border-color .25s;
+    background: rgba(37,99,235,.04);
     position: relative;
-    transition: transform .2s;
   }
-  .pipe-step:hover { transform: scale(1.04); }
-  .pipe-arrow {
-    color: var(--muted);
-    font-size: 1.5rem;
-    padding: 0 .5rem;
-    flex-shrink: 0;
+  .drop-area.dragover { background: rgba(37,99,235,.12); border-color: #60a5fa; }
+  .drop-area input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+  .drop-icon { font-size: 3.5rem; margin-bottom: 1rem; display: block; }
+  .drop-area h3 { font-size: 1.3rem; margin-bottom: .5rem; }
+  .drop-area p { color: #64748b; font-size: .9rem; }
+  .drop-area .browse-btn {
+    display: inline-block; margin-top: 1rem; padding: .6rem 1.8rem;
+    background: var(--accent); border-radius: .6rem; font-size: .9rem;
+    font-weight: 600; color: #fff; pointer-events: none;
   }
-  .pipe-step .num {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    background: var(--accent);
-    color: #fff;
-    font-size: .8rem;
-    font-weight: 700;
-    margin-bottom: .6rem;
-  }
-  .pipe-step h4 { font-size: .95rem; margin-bottom: .3rem; }
-  .pipe-step p { font-size: .8rem; color: #64748b; }
+  .format-chips { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; margin-top: 1.2rem; }
+  .format-chip { background: rgba(59,130,246,.1); border: 1px solid rgba(59,130,246,.25); color: #93c5fd; border-radius: 99px; padding: .2rem .8rem; font-size: .78rem; font-family: monospace; }
 
-  /* ── DBSCAN Interactive ── */
-  #dbscan-section { background: #0c1220; }
-  #dbscan-section section { max-width: 1100px; }
-  .dbscan-layout {
+  /* ── Analysis Dashboard ── */
+  #analysis-panel { display: none; }
+  #analysis-panel.visible { display: block; }
+  .dashboard-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 1.5rem;
     align-items: start;
   }
-  @media(max-width:700px){ .dbscan-layout { grid-template-columns: 1fr; } }
+  @media(max-width:768px){ .dashboard-grid { grid-template-columns: 1fr; } }
 
-  #dbscan-canvas-wrap {
+  /* Map canvas */
+  .map-wrap {
     background: #070d1a;
     border: 1px solid var(--border);
     border-radius: 1rem;
     overflow: hidden;
     position: relative;
-    aspect-ratio: 1;
   }
-  #dbscan-canvas-wrap canvas { width: 100%; height: 100%; display: block; }
+  .map-wrap canvas { width: 100%; display: block; }
+  .map-toolbar {
+    position: absolute; top: .75rem; right: .75rem;
+    display: flex; gap: .5rem;
+  }
+  .map-btn {
+    background: rgba(10,14,26,.85);
+    border: 1px solid var(--border);
+    color: var(--text); border-radius: .5rem;
+    padding: .35rem .7rem; font-size: .8rem; cursor: pointer;
+    transition: background .15s;
+  }
+  .map-btn:hover { background: rgba(59,130,246,.2); }
+  .map-legend {
+    position: absolute; bottom: .75rem; left: .75rem;
+    background: rgba(10,14,26,.85); border: 1px solid var(--border);
+    border-radius: .6rem; padding: .6rem .9rem; font-size: .75rem;
+    display: flex; flex-direction: column; gap: .35rem;
+  }
+  .map-legend-item { display: flex; align-items: center; gap: .5rem; color: #94a3b8; }
+  .map-legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .map-legend-line { width: 18px; height: 2px; flex-shrink: 0; }
 
-  .dbscan-controls { display: flex; flex-direction: column; gap: 1.2rem; }
-  .ctrl-group label {
-    display: flex;
-    justify-content: space-between;
-    font-size: .85rem;
-    color: #94a3b8;
-    margin-bottom: .4rem;
+  /* Stats panel */
+  .stats-panel { display: flex; flex-direction: column; gap: 1rem; }
+  .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: .75rem;
+    padding: .9rem 1rem;
+    text-align: center;
   }
-  .ctrl-group label span { color: var(--accent); font-weight: 600; }
-  input[type=range] {
-    width: 100%;
-    accent-color: var(--accent);
-  }
-  .btn {
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    border-radius: .6rem;
-    padding: .7rem 1.5rem;
-    cursor: pointer;
-    font-size: .95rem;
-    font-weight: 600;
-    transition: background .2s, transform .1s;
-  }
-  .btn:hover { background: #2563eb; transform: translateY(-1px); }
-  .btn.secondary {
-    background: transparent;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-  }
-  .btn.secondary:hover { background: rgba(59,130,246,.1); }
+  .stat-card .sv { font-size: 1.7rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .stat-card .sl { font-size: .72rem; color: var(--muted); margin-top: .15rem; }
 
-  .legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: .75rem;
-    margin-top: 1rem;
-  }
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: .4rem;
-    font-size: .8rem;
-    color: #94a3b8;
-  }
-  .legend-dot {
-    width: 12px; height: 12px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  /* ── Realtime strip ── */
-  #rt-strip {
-    background: #070d1a;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 1.5rem 1.5rem;
-    overflow: hidden;
-  }
-  #rt-strip canvas { width: 100%; display: block; }
-
-  /* ── How it works — 3D cards ── */
-  .steps-3d {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    perspective: 1000px;
-  }
-  .step-3d {
+  /* DBSCAN controls */
+  .analysis-controls {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 1rem;
-    padding: 1.5rem;
-    transform-style: preserve-3d;
-    transition: transform .3s;
-    cursor: default;
+    padding: 1.25rem;
   }
-  .step-3d:hover { transform: rotateY(-8deg) rotateX(4deg) translateY(-4px); }
-  .step-3d .step-num {
-    font-size: 2.5rem;
-    font-weight: 900;
-    color: var(--border);
-    line-height: 1;
-    margin-bottom: .5rem;
+  .analysis-controls h4 { font-size: .95rem; margin-bottom: 1rem; color: #94a3b8; }
+  .ctrl-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-bottom: .75rem; }
+  @media(max-width:500px){ .ctrl-row { grid-template-columns: 1fr; } }
+  .ctrl-group label { display: flex; justify-content: space-between; font-size: .82rem; color: #94a3b8; margin-bottom: .3rem; }
+  .ctrl-group label span { color: var(--accent); font-weight: 600; }
+  input[type=range] { width: 100%; accent-color: var(--accent); }
+  .run-btn {
+    width: 100%; padding: .75rem; background: var(--accent); color: #fff;
+    border: none; border-radius: .6rem; font-size: .95rem; font-weight: 600;
+    cursor: pointer; transition: background .2s; margin-top: .5rem;
   }
-  .step-3d h4 { font-size: 1rem; margin-bottom: .4rem; }
-  .step-3d p { font-size: .85rem; color: #64748b; line-height: 1.6; }
+  .run-btn:hover { background: #2563eb; }
 
-  /* ── Params table ── */
-  .params-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: .9rem;
-  }
-  .params-table th {
-    background: #111827;
-    padding: .75rem 1rem;
-    text-align: left;
-    color: #94a3b8;
-    font-weight: 600;
-    border-bottom: 2px solid var(--border);
-  }
-  .params-table td {
-    padding: .75rem 1rem;
-    border-bottom: 1px solid var(--border);
-    vertical-align: top;
-  }
-  .params-table tr:hover td { background: #111827; }
-  .tag {
-    display: inline-block;
-    background: rgba(59,130,246,.15);
-    color: var(--accent);
-    border-radius: .4rem;
-    padding: .15rem .5rem;
-    font-size: .8rem;
-    font-family: monospace;
-  }
-
-  /* ── Papers ── */
-  .papers { display: flex; flex-direction: column; gap: 1.2rem; }
-  .paper-card {
+  /* Explanation box */
+  .explanation-box {
     background: var(--card);
     border: 1px solid var(--border);
-    border-left: 4px solid var(--accent);
+    border-left: 4px solid var(--accent2);
     border-radius: .75rem;
-    padding: 1.2rem 1.5rem;
-    transition: border-color .2s;
+    padding: 1.25rem 1.5rem;
   }
-  .paper-card:hover { border-left-color: var(--accent2); }
-  .paper-card .authors { font-size: .8rem; color: var(--muted); margin-bottom: .3rem; }
-  .paper-card h4 { font-size: 1rem; margin-bottom: .4rem; }
-  .paper-card .venue {
-    font-size: .8rem;
-    color: var(--accent2);
-    margin-bottom: .5rem;
-  }
-  .paper-card p { font-size: .85rem; color: #94a3b8; line-height: 1.6; }
+  .explanation-box h4 { font-size: .9rem; color: var(--accent2); margin-bottom: .75rem; display: flex; align-items: center; gap: .4rem; }
+  .explanation-box p { font-size: .88rem; color: #94a3b8; line-height: 1.75; margin-bottom: .6rem; }
+  .explanation-box p:last-child { margin-bottom: 0; }
+  .exp-highlight { color: var(--text); font-weight: 600; }
 
-  /* ── Footer ── */
-  footer {
-    text-align: center;
-    padding: 3rem 1.5rem;
-    color: #334155;
+  /* Cluster list */
+  .cluster-list { display: flex; flex-direction: column; gap: .6rem; max-height: 240px; overflow-y: auto; }
+  .cluster-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: .6rem;
+    padding: .75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
     font-size: .85rem;
-    border-top: 1px solid var(--border);
   }
+  .cluster-color { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .cluster-item .ci-label { font-weight: 600; flex: 1; }
+  .cluster-item .ci-detail { color: var(--muted); font-size: .78rem; }
 
-  /* ── Divider ── */
-  .divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border), transparent);
-    margin: 0 1.5rem;
+  /* Speed chart */
+  .speed-chart-wrap {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: .75rem;
+    padding: 1rem;
+    overflow: hidden;
   }
+  .speed-chart-wrap h4 { font-size: .85rem; color: #94a3b8; margin-bottom: .75rem; }
+  #speedChart { width: 100%; display: block; }
 
+  /* ── Cards, pipeline etc (reuse) ── */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-bottom: 1.5rem; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 1rem; padding: 1.4rem; transition: transform .25s, box-shadow .25s; }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 10px 35px rgba(59,130,246,.12); }
+  .card-icon { font-size: 1.9rem; margin-bottom: .6rem; }
+  .card h3 { font-size: 1rem; margin-bottom: .4rem; }
+  .card p { color: #94a3b8; font-size: .88rem; line-height: 1.7; }
+
+  .pipeline { display: flex; flex-wrap: wrap; align-items: center; gap: 0; margin: 1.5rem 0; }
+  .pipe-step { flex: 1; min-width: 130px; background: var(--card); border: 1px solid var(--border); border-radius: .75rem; padding: 1.1rem .9rem; text-align: center; transition: transform .2s; }
+  .pipe-step:hover { transform: scale(1.03); }
+  .pipe-arrow { color: var(--muted); font-size: 1.3rem; padding: 0 .3rem; flex-shrink: 0; }
+  .pipe-step .num { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: #fff; font-size: .75rem; font-weight: 700; margin-bottom: .5rem; }
+  .pipe-step h4 { font-size: .9rem; margin-bottom: .25rem; }
+  .pipe-step p { font-size: .78rem; color: #64748b; }
+
+  /* DBSCAN demo */
+  #dbscan-section { background: #0c1220; }
+  .dbscan-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+  @media(max-width:700px){ .dbscan-layout { grid-template-columns: 1fr; } }
+  #dbscan-canvas-wrap { background: #070d1a; border: 1px solid var(--border); border-radius: 1rem; overflow: hidden; position: relative; aspect-ratio: 1; }
+  #dbscan-canvas-wrap canvas { width: 100%; height: 100%; display: block; }
+  .dbscan-controls { display: flex; flex-direction: column; gap: 1.1rem; }
+  .btn { background: var(--accent); color: #fff; border: none; border-radius: .6rem; padding: .65rem 1.4rem; cursor: pointer; font-size: .9rem; font-weight: 600; transition: background .2s, transform .1s; }
+  .btn:hover { background: #2563eb; transform: translateY(-1px); }
+  .btn.secondary { background: transparent; border: 1px solid var(--accent); color: var(--accent); }
+  .btn.secondary:hover { background: rgba(59,130,246,.1); }
+  .legend { display: flex; flex-wrap: wrap; gap: .7rem; }
+  .legend-item { display: flex; align-items: center; gap: .35rem; font-size: .78rem; color: #94a3b8; }
+  .legend-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+
+  /* Realtime strip */
+  #rt-strip { background: #070d1a; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1.5rem; }
+  .stats-row { display: flex; flex-wrap: wrap; gap: 1.2rem; margin-bottom: 1.2rem; }
+  .stat-box { background: var(--card); border: 1px solid var(--border); border-radius: .75rem; padding: .9rem 1.4rem; min-width: 130px; text-align: center; }
+  .stat-box .stat-val { font-size: 1.9rem; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .stat-box .stat-label { font-size: .72rem; color: var(--muted); margin-top: .15rem; }
+
+  /* 3D step cards */
+  .steps-3d { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1.2rem; perspective: 1000px; }
+  .step-3d { background: var(--card); border: 1px solid var(--border); border-radius: 1rem; padding: 1.4rem; transform-style: preserve-3d; transition: transform .3s; cursor: default; }
+  .step-3d .step-num { font-size: 2.3rem; font-weight: 900; color: var(--border); line-height: 1; margin-bottom: .4rem; }
+  .step-3d h4 { font-size: .95rem; margin-bottom: .35rem; }
+  .step-3d p { font-size: .82rem; color: #64748b; line-height: 1.6; }
+
+  /* params table */
+  .params-table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+  .params-table th { background: #111827; padding: .7rem 1rem; text-align: left; color: #94a3b8; font-weight: 600; border-bottom: 2px solid var(--border); }
+  .params-table td { padding: .7rem 1rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .params-table tr:hover td { background: #111827; }
+  .tag { display: inline-block; background: rgba(59,130,246,.15); color: var(--accent); border-radius: .4rem; padding: .12rem .45rem; font-size: .78rem; font-family: monospace; }
+
+  .formula-box { background: #070d1a; border: 1px solid var(--border); border-radius: .75rem; padding: 1.1rem 1.4rem; font-family: 'Courier New', monospace; font-size: .9rem; color: #34d399; margin: .9rem 0; line-height: 1.8; overflow-x: auto; }
+  .chip { display: inline-block; background: rgba(16,185,129,.12); color: var(--accent2); border-radius: 99px; padding: .18rem .65rem; font-size: .76rem; font-weight: 600; margin-right: .25rem; }
   .highlight { color: var(--accent2); font-weight: 600; }
 
-  /* ── Realtime anim stats ── */
-  .stats-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-  .stat-box {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: .75rem;
-    padding: 1rem 1.5rem;
-    min-width: 140px;
-    text-align: center;
-  }
-  .stat-box .stat-val {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--accent);
-    font-variant-numeric: tabular-nums;
-  }
-  .stat-box .stat-label { font-size: .75rem; color: var(--muted); margin-top: .2rem; }
+  /* papers */
+  .papers { display: flex; flex-direction: column; gap: 1.1rem; }
+  .paper-card { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: .75rem; padding: 1.1rem 1.4rem; transition: border-color .2s; }
+  .paper-card:hover { border-left-color: var(--accent2); }
+  .paper-card .authors { font-size: .78rem; color: var(--muted); margin-bottom: .3rem; }
+  .paper-card h4 { font-size: .97rem; margin-bottom: .35rem; }
+  .paper-card .venue { font-size: .78rem; color: var(--accent2); margin-bottom: .45rem; }
+  .paper-card p { font-size: .84rem; color: #94a3b8; line-height: 1.65; }
 
-  .formula-box {
-    background: #070d1a;
-    border: 1px solid var(--border);
-    border-radius: .75rem;
-    padding: 1.2rem 1.5rem;
-    font-family: 'Courier New', monospace;
-    font-size: .95rem;
-    color: #34d399;
-    margin: 1rem 0;
-    line-height: 1.8;
-    overflow-x: auto;
-  }
+  footer { text-align: center; padding: 3rem 1.5rem; color: #334155; font-size: .83rem; border-top: 1px solid var(--border); }
 
-  .chip {
-    display: inline-block;
-    background: rgba(16,185,129,.12);
-    color: var(--accent2);
-    border-radius: 99px;
-    padding: .2rem .7rem;
-    font-size: .78rem;
-    font-weight: 600;
-    margin-right: .3rem;
+  /* Loading overlay */
+  .loading-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(10,14,26,.85);
+    z-index: 1000;
+    align-items: center; justify-content: center;
+    flex-direction: column; gap: 1rem;
   }
+  .loading-overlay.show { display: flex; }
+  .spinner { width: 48px; height: 48px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Toast */
+  .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1e293b; border: 1px solid var(--border); border-radius: .75rem; padding: .85rem 1.5rem; font-size: .9rem; z-index: 999; transform: translateY(100px); transition: transform .3s; max-width: 340px; }
+  .toast.show { transform: translateY(0); }
+  .toast.error { border-left: 4px solid var(--accent4); }
+  .toast.success { border-left: 4px solid var(--accent2); }
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════
-     HERO — 3D Satellite Canvas
-══════════════════════════════════ -->
+<!-- Loading -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="spinner"></div>
+  <span style="color:#94a3b8">กำลังวิเคราะห์ข้อมูล GPS...</span>
+</div>
+<div class="toast" id="toast"></div>
+
+<!-- ═══ HERO ═══ -->
 <div id="hero">
   <canvas id="heroCanvas"></canvas>
   <div class="hero-text">
-    <p class="section-label" style="color:#60a5fa;font-size:.9rem;letter-spacing:.2em;">INTERACTIVE EXPLAINER</p>
+    <p class="section-label" style="color:#60a5fa;font-size:.88rem;letter-spacing:.2em;">INTERACTIVE EXPLAINER</p>
     <h1>GPS Analyzer<br>+ DBSCAN Clustering</h1>
-    <p>เข้าใจการทำงานของ GPS Realtime Analysis และ DBSCAN<br>ผ่านการแสดงผล 3D แบบอินเตอร์แอกทีฟ</p>
+    <p>อัปโหลด GPS_Trip.json เพื่อวิเคราะห์ข้อมูลจริง<br>หรือเรียนรู้การทำงานผ่าน Demo แบบ Interactive</p>
   </div>
   <div class="scroll-hint">
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-      <path d="M10 4v12M5 11l5 5 5-5" stroke="#475569" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M5 11l5 5 5-5" stroke="#475569" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     เลื่อนลงเพื่อเริ่ม
   </div>
 </div>
 
-<!-- ══════════════════════════════════
-     SECTION 1 — GPS คืออะไร
-══════════════════════════════════ -->
+<!-- ═══ UPLOAD ZONE ═══ -->
+<div id="upload-zone">
+<section>
+  <p class="section-label">★ วิเคราะห์ข้อมูลจริง</p>
+  <h2>โหลด GPS_Trip.json ของคุณ</h2>
+  <p class="lead">รองรับหลาย format อัตโนมัติ — drag & drop หรือกดเลือกไฟล์ได้เลย</p>
+
+  <div class="drop-area" id="dropArea">
+    <input type="file" id="fileInput" accept=".json,application/json">
+    <span class="drop-icon">📂</span>
+    <h3>Drag & Drop GPS_Trip.json</h3>
+    <p>หรือคลิกเพื่อเลือกไฟล์</p>
+    <span class="browse-btn">เลือกไฟล์</span>
+    <div class="format-chips">
+      <span class="format-chip" style="background:rgba(16,185,129,.15);border-color:rgba(16,185,129,.35);color:#34d399">{trips:[{pings:[{lat,lng,speed_kmh,label}]}]}</span>
+      <span class="format-chip">[{lat, lng}]</span>
+      <span class="format-chip">[{latitude, longitude}]</span>
+      <span class="format-chip">{coords:{lat,lng}}</span>
+      <span class="format-chip">GeoJSON</span>
+      <span class="format-chip">{locations:[...]}</span>
+      <span class="format-chip">[{x,y}]</span>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ═══ ANALYSIS DASHBOARD ═══ -->
+<div id="analysis-panel">
+<section>
+  <p class="section-label" id="analysis-filename">📄 GPS_Trip.json</p>
+  <h2>ผลการวิเคราะห์ GPS Trip</h2>
+
+  <div class="dashboard-grid">
+    <!-- Map -->
+    <div>
+      <div class="map-wrap" id="mapWrap">
+        <canvas id="mapCanvas" height="480"></canvas>
+        <div class="map-toolbar">
+          <button class="map-btn" id="toggleClusters">🎨 Clusters</button>
+          <button class="map-btn" id="toggleHeatmap">🔥 Heatmap</button>
+          <button class="map-btn" id="toggleEps">◎ ε Rings</button>
+        </div>
+        <div class="map-legend" id="mapLegend">
+          <div class="map-legend-item"><div class="map-legend-line" style="background:#3b82f6"></div>เส้นทาง</div>
+          <div class="map-legend-item"><div class="map-legend-dot" style="background:#10b981"></div>Start</div>
+          <div class="map-legend-item"><div class="map-legend-dot" style="background:#ef4444"></div>End</div>
+          <div class="map-legend-item"><div class="map-legend-dot" style="background:#f59e0b"></div>Cluster</div>
+          <div class="map-legend-item"><div class="map-legend-dot" style="background:#475569"></div>Noise</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right panel -->
+    <div class="stats-panel">
+      <!-- Stats grid -->
+      <div class="stat-row">
+        <div class="stat-card"><div class="sv" id="sv-points" style="color:#3b82f6">—</div><div class="sl">จุด GPS ทั้งหมด</div></div>
+        <div class="stat-card"><div class="sv" id="sv-dist" style="color:#10b981">—</div><div class="sl">ระยะทางรวม (km)</div></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="sv" id="sv-duration" style="color:#f59e0b">—</div><div class="sl">ระยะเวลา</div></div>
+        <div class="stat-card"><div class="sv" id="sv-avgspeed" style="color:#8b5cf6">—</div><div class="sl">ความเร็วเฉลี่ย</div></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="sv" id="sv-maxspeed" style="color:#ef4444">—</div><div class="sl">ความเร็วสูงสุด</div></div>
+        <div class="stat-card"><div class="sv" id="sv-clusters" style="color:#f59e0b">—</div><div class="sl">Clusters (stay points)</div></div>
+      </div>
+
+      <!-- DBSCAN controls -->
+      <div class="analysis-controls">
+        <h4>⚙️ ปรับพารามิเตอร์ DBSCAN</h4>
+        <div class="ctrl-row">
+          <div class="ctrl-group">
+            <label>ε (รัศมี) <span id="an-eps-val">100 m</span></label>
+            <input type="range" id="an-eps" min="20" max="500" value="100" step="10">
+          </div>
+          <div class="ctrl-group">
+            <label>minPts <span id="an-min-val">4</span></label>
+            <input type="range" id="an-min" min="2" max="15" value="4" step="1">
+          </div>
+        </div>
+        <div class="ctrl-group">
+          <label>Speed threshold (stay ≤) <span id="an-speed-val">5 km/h</span></label>
+          <input type="range" id="an-speed" min="0" max="30" value="5" step="1">
+        </div>
+        <button class="run-btn" id="rerun-btn">▶ Re-run Analysis</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Speed chart -->
+  <div class="speed-chart-wrap" style="margin-top:1.5rem">
+    <h4>📈 Speed Timeline — จุดสีเหลืองคือ Stay Points ที่ DBSCAN ตรวจพบ</h4>
+    <canvas id="speedChart" height="100"></canvas>
+  </div>
+
+  <!-- Cluster list -->
+  <div style="margin-top:1.5rem">
+    <h3 style="font-size:1.1rem;margin-bottom:1rem">📍 Stay Points / Clusters ที่พบ</h3>
+    <div class="cluster-list" id="clusterList"></div>
+  </div>
+
+  <!-- AI Explanation -->
+  <div class="explanation-box" style="margin-top:1.5rem">
+    <h4>🧠 การวิเคราะห์และคำอธิบาย</h4>
+    <div id="explanationText">
+      <p style="color:#475569">กำลังรอข้อมูล...</p>
+    </div>
+  </div>
+
+</section>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ SEC 1 — GPS Basics ═══ -->
 <section>
   <p class="section-label">01 — พื้นฐาน GPS</p>
   <h2>GPS ทำงานอย่างไร?</h2>
-  <p class="lead">
-    GPS (Global Positioning System) ใช้ดาวเทียมอย่างน้อย 4 ดวงในการคำนวณตำแหน่งบนโลก ด้วยวิธี
-    <span class="highlight">Trilateration</span> — วัดระยะเวลาที่สัญญาณเดินทางจากดาวเทียมถึงอุปกรณ์
-    แล้วแปลงเป็นพิกัด Latitude / Longitude / Altitude
-  </p>
+  <p class="lead">GPS ใช้ดาวเทียมอย่างน้อย 4 ดวงคำนวณตำแหน่งด้วย <span class="highlight">Trilateration</span> วัดเวลาที่สัญญาณเดินทางจากดาวเทียมถึงอุปกรณ์ แปลงเป็นพิกัด Latitude / Longitude / Altitude</p>
   <div class="cards">
-    <div class="card">
-      <div class="card-icon">🛰️</div>
-      <h3>ดาวเทียม GPS</h3>
-      <p>มีดาวเทียม GPS ทั้งหมด 31 ดวงในวงโคจร สูงจากพื้นโลก ~20,200 กม. ส่งสัญญาณวิทยุด้วยความเร็วแสง</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">📡</div>
-      <h3>Trilateration</h3>
-      <p>คำนวณจากระยะห่างของ 3+ ดาวเทียม เพื่อระบุจุดตัดในพื้นที่ 3 มิติ ความแม่นยำ ~3–5 เมตร (ปกติ)</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">📍</div>
-      <h3>NMEA Data Stream</h3>
-      <p>ข้อมูลดิบจาก GPS มาในรูปแบบ NMEA 0183 เช่น <code style="color:#60a5fa">$GPRMC</code> ประกอบด้วย lat, lon, speed, heading, timestamp</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">⏱️</div>
-      <h3>Realtime Feed</h3>
-      <p>ข้อมูลอัปเดตทุก 1–10 วินาที (ขึ้นกับ fix rate) ระบบ Analyzer ต้องประมวลผลให้ทันกระแสข้อมูล</p>
-    </div>
+    <div class="card"><div class="card-icon">🛰️</div><h3>ดาวเทียม GPS</h3><p>มี 31 ดวงในวงโคจรสูง ~20,200 กม. ส่งสัญญาณวิทยุด้วยความเร็วแสง</p></div>
+    <div class="card"><div class="card-icon">📡</div><h3>Trilateration</h3><p>คำนวณจากระยะห่างของ 3+ ดาวเทียม ระบุจุดตัดใน 3D ความแม่นยำ ~3–5 ม.</p></div>
+    <div class="card"><div class="card-icon">📍</div><h3>NMEA Data Stream</h3><p>ข้อมูลดิบมาในรูปแบบ NMEA 0183 เช่น <code style="color:#60a5fa">$GPRMC</code> มี lat, lon, speed, heading, timestamp</p></div>
+    <div class="card"><div class="card-icon">⏱️</div><h3>Realtime Feed</h3><p>อัปเดตทุก 1–10 วินาที ระบบ Analyzer ต้องประมวลผลให้ทันกระแสข้อมูล</p></div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- ══════════════════════════════════
-     SECTION 2 — Realtime Pipeline
-══════════════════════════════════ -->
+<!-- ═══ SEC 2 — Pipeline ═══ -->
 <section>
   <p class="section-label">02 — Realtime Pipeline</p>
   <h2>การไหลของข้อมูล Realtime</h2>
-  <p class="lead">
-    GPS Analyzer รับข้อมูลดิบ → กรอง → แปลง → วิเคราะห์ → แสดงผล ในลูปต่อเนื่อง
-    ต้องจัดการ latency ให้ต่ำและรองรับ noise ของสัญญาณ
-  </p>
-
+  <p class="lead">GPS Analyzer รับข้อมูลดิบ → กรอง → แปลง → วิเคราะห์ → แสดงผล ในลูปต่อเนื่อง</p>
   <div class="pipeline">
-    <div class="pipe-step">
-      <div class="num">1</div>
-      <h4>📡 Ingest</h4>
-      <p>รับ NMEA stream จาก Serial/UDP/WebSocket</p>
-    </div>
+    <div class="pipe-step"><div class="num">1</div><h4>📡 Ingest</h4><p>รับ NMEA stream จาก Serial/UDP/WebSocket</p></div>
     <div class="pipe-arrow">→</div>
-    <div class="pipe-step">
-      <div class="num">2</div>
-      <h4>🧹 Parse & Filter</h4>
-      <p>แปลง NMEA เป็น struct กรอง outlier ด้วย Haversine + velocity check</p>
-    </div>
+    <div class="pipe-step"><div class="num">2</div><h4>🧹 Parse & Filter</h4><p>แปลง NMEA เป็น struct กรอง outlier ด้วย Haversine + velocity check</p></div>
     <div class="pipe-arrow">→</div>
-    <div class="pipe-step">
-      <div class="num">3</div>
-      <h4>🔢 Feature Extract</h4>
-      <p>คำนวณ speed, heading, distance, dwell time</p>
-    </div>
+    <div class="pipe-step"><div class="num">3</div><h4>🔢 Feature Extract</h4><p>คำนวณ speed, heading, distance, dwell time</p></div>
     <div class="pipe-arrow">→</div>
-    <div class="pipe-step">
-      <div class="num">4</div>
-      <h4>🧠 DBSCAN Cluster</h4>
-      <p>จับกลุ่ม "สถานที่หยุด" จาก trajectory แบบ online</p>
-    </div>
+    <div class="pipe-step"><div class="num">4</div><h4>🧠 DBSCAN Cluster</h4><p>จับกลุ่ม "สถานที่หยุด" จาก trajectory แบบ online</p></div>
     <div class="pipe-arrow">→</div>
-    <div class="pipe-step">
-      <div class="num">5</div>
-      <h4>📊 Visualize</h4>
-      <p>แสดงแผนที่ + สถิติ แบบ realtime</p>
-    </div>
+    <div class="pipe-step"><div class="num">5</div><h4>📊 Visualize</h4><p>แสดงแผนที่ + สถิติ แบบ realtime</p></div>
   </div>
 
-  <!-- Realtime animated strip -->
   <div id="rt-strip">
     <div class="stats-row">
-      <div class="stat-box">
-        <div class="stat-val" id="stat-points">0</div>
-        <div class="stat-label">GPS Points</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-val" id="stat-speed" style="color:#10b981">0</div>
-        <div class="stat-label">km/h (simulated)</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-val" id="stat-clusters" style="color:#f59e0b">0</div>
-        <div class="stat-label">Clusters Found</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-val" id="stat-noise" style="color:#ef4444">0</div>
-        <div class="stat-label">Noise Points</div>
-      </div>
+      <div class="stat-box"><div class="stat-val" id="stat-points">0</div><div class="stat-label">GPS Points</div></div>
+      <div class="stat-box"><div class="stat-val" id="stat-speed" style="color:#10b981">0</div><div class="stat-label">km/h (simulated)</div></div>
+      <div class="stat-box"><div class="stat-val" id="stat-clusters" style="color:#f59e0b">0</div><div class="stat-label">Clusters Found</div></div>
+      <div class="stat-box"><div class="stat-val" id="stat-noise" style="color:#ef4444">0</div><div class="stat-label">Noise Points</div></div>
     </div>
-    <canvas id="rtCanvas" height="120"></canvas>
+    <canvas id="rtCanvas" height="110"></canvas>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- ══════════════════════════════════
-     SECTION 3 — DBSCAN อธิบาย
-══════════════════════════════════ -->
+<!-- ═══ SEC 3 — DBSCAN Demo ═══ -->
 <div id="dbscan-section">
 <section>
   <p class="section-label">03 — DBSCAN Algorithm</p>
   <h2>DBSCAN คืออะไร?</h2>
-  <p class="lead">
-    <strong>DBSCAN</strong> (Density-Based Spatial Clustering of Applications with Noise)
-    คือ algorithm จับกลุ่มข้อมูลโดยดูจาก <span class="highlight">ความหนาแน่น</span> ไม่ต้องบอกจำนวน cluster ล่วงหน้า
-    และสามารถระบุจุด noise ได้
-  </p>
-
+  <p class="lead"><strong>DBSCAN</strong> (Density-Based Spatial Clustering of Applications with Noise) จับกลุ่มข้อมูลจาก <span class="highlight">ความหนาแน่น</span> ไม่ต้องบอกจำนวน cluster ล่วงหน้า และระบุ noise ได้</p>
   <div class="formula-box">
-    พารามิเตอร์หลัก:<br>
-    ε (epsilon)   = รัศมีสูงสุดที่จุดสองจุดถือว่า "ใกล้กัน"<br>
-    minPts        = จำนวนจุดขั้นต่ำใน ε-neighborhood เพื่อเป็น core point<br><br>
-    ประเภทจุด:<br>
-    Core Point    → มีจุดใน ε-neighborhood ≥ minPts<br>
-    Border Point  → อยู่ใน ε ของ core point แต่ตัวเองไม่ใช่ core<br>
-    Noise Point   → ไม่ใช่ทั้งสองอย่าง (outlier)
+    ε (epsilon) = รัศมีสูงสุดที่จุดสองจุดถือว่า "ใกล้กัน"<br>
+    minPts      = จำนวนจุดขั้นต่ำใน ε-neighborhood เพื่อเป็น core point<br><br>
+    Core Point  → มีจุดใน ε-neighborhood ≥ minPts<br>
+    Border Point → อยู่ใน ε ของ core point แต่ตัวเองไม่ใช่ core<br>
+    Noise Point  → ไม่ใช่ทั้งสองอย่าง (outlier / GPS drift)
   </div>
-
   <div class="dbscan-layout">
-    <div id="dbscan-canvas-wrap">
-      <canvas id="dbscanCanvas"></canvas>
-    </div>
+    <div id="dbscan-canvas-wrap"><canvas id="dbscanCanvas"></canvas></div>
     <div class="dbscan-controls">
-      <div class="ctrl-group">
-        <label>ε (Epsilon — รัศมี) <span id="eps-val">40px</span></label>
-        <input type="range" id="eps-slider" min="20" max="100" value="40" step="2">
-      </div>
-      <div class="ctrl-group">
-        <label>minPts (จุดขั้นต่ำ) <span id="min-val">3</span></label>
-        <input type="range" id="min-slider" min="2" max="8" value="3" step="1">
-      </div>
-      <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+      <div class="ctrl-group"><label>ε (Epsilon) <span id="eps-val">40px</span></label><input type="range" id="eps-slider" min="20" max="100" value="40" step="2"></div>
+      <div class="ctrl-group"><label>minPts <span id="min-val">3</span></label><input type="range" id="min-slider" min="2" max="8" value="3" step="1"></div>
+      <div style="display:flex;gap:.6rem;flex-wrap:wrap;">
         <button class="btn" id="run-btn">▶ Run DBSCAN</button>
         <button class="btn secondary" id="reset-btn">↺ Reset</button>
-        <button class="btn secondary" id="add-btn">+ Add GPS Points</button>
+        <button class="btn secondary" id="add-btn">+ Add Points</button>
       </div>
       <div class="legend">
-        <div class="legend-item"><div class="legend-dot" style="background:#3b82f6"></div> Core Point</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#10b981"></div> Border Point</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div> Noise / Outlier</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div> Cluster Center</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#3b82f6"></div>Core Point</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#10b981"></div>Border Point</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div>Noise</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div>Cluster Center</div>
       </div>
-      <div id="dbscan-result" style="background:#070d1a;border:1px solid var(--border);border-radius:.75rem;padding:1rem;font-size:.85rem;color:#94a3b8;min-height:80px;">
-        คลิก <strong style="color:#60a5fa">Run DBSCAN</strong> เพื่อดูผลลัพธ์<br>
-        หรือปรับ ε และ minPts แล้วลองใหม่
+      <div id="dbscan-result" style="background:#070d1a;border:1px solid var(--border);border-radius:.75rem;padding:1rem;font-size:.84rem;color:#94a3b8;min-height:75px;">
+        คลิก <strong style="color:#60a5fa">Run DBSCAN</strong> เพื่อดูผลลัพธ์
       </div>
     </div>
   </div>
@@ -570,86 +490,28 @@
 
 <div class="divider"></div>
 
-<!-- ══════════════════════════════════
-     SECTION 4 — GPS + DBSCAN ร่วมกัน
-══════════════════════════════════ -->
+<!-- ═══ SEC 4 — GPS × DBSCAN ═══ -->
 <section>
   <p class="section-label">04 — GPS × DBSCAN</p>
   <h2>ทำไมถึงใช้ DBSCAN กับ GPS?</h2>
-  <p class="lead">
-    เมื่อนำ GPS trajectory มาวิเคราะห์ DBSCAN ช่วย <span class="highlight">หาสถานที่ที่คนหยุดนาน</span>
-    (stay points / significant places) โดยอัตโนมัติ ทนต่อ noise ของ GPS และไม่ต้องรู้จำนวนสถานที่ล่วงหน้า
-  </p>
-
+  <p class="lead">DBSCAN ช่วย <span class="highlight">หาสถานที่ที่คนหยุดนาน</span> (stay points) โดยอัตโนมัติ ทนต่อ noise และไม่ต้องรู้จำนวนสถานที่ล่วงหน้า</p>
   <div class="steps-3d">
-    <div class="step-3d">
-      <div class="step-num">01</div>
-      <h4>Stay Point Detection</h4>
-      <p>จุดที่ GPS อยู่ในบริเวณเดิมนานกว่า threshold → คือ cluster ที่น่าสนใจ</p>
-    </div>
-    <div class="step-3d">
-      <div class="step-num">02</div>
-      <h4>Anomaly Detection</h4>
-      <p>จุด noise คือจุดที่ผิดปกติ เช่น GPS drift, spoofing, หรือพฤติกรรมผิดปกติ</p>
-    </div>
-    <div class="step-3d">
-      <div class="step-num">03</div>
-      <h4>Route Simplification</h4>
-      <p>ลดจำนวนจุดใน trajectory โดยเก็บแค่ cluster center แทนทุก GPS point</p>
-    </div>
-    <div class="step-3d">
-      <div class="step-num">04</div>
-      <h4>Behavior Pattern</h4>
-      <p>วิเคราะห์รูปแบบการเดินทาง เช่น Home, Work, Frequent Visit ได้โดยอัตโนมัติ</p>
-    </div>
-    <div class="step-3d">
-      <div class="step-num">05</div>
-      <h4>Fleet Monitoring</h4>
-      <p>ติดตาม vehicle หลายคันพร้อมกัน แยกกลุ่มตามเส้นทางหรือพื้นที่ปฏิบัติงาน</p>
-    </div>
-    <div class="step-3d">
-      <div class="step-num">06</div>
-      <h4>Geofencing Auto</h4>
-      <p>สร้าง geofence อัตโนมัติจาก cluster แทนการวาดด้วยมือ</p>
-    </div>
+    <div class="step-3d"><div class="step-num">01</div><h4>Stay Point Detection</h4><p>จุดที่ GPS อยู่บริเวณเดิมนานกว่า threshold → cluster ที่น่าสนใจ</p></div>
+    <div class="step-3d"><div class="step-num">02</div><h4>Anomaly Detection</h4><p>จุด noise คือ GPS drift, spoofing, หรือพฤติกรรมผิดปกติ</p></div>
+    <div class="step-3d"><div class="step-num">03</div><h4>Route Simplification</h4><p>ลดจุดใน trajectory โดยเก็บแค่ cluster center แทนทุก GPS point</p></div>
+    <div class="step-3d"><div class="step-num">04</div><h4>Behavior Pattern</h4><p>วิเคราะห์ Home, Work, Frequent Visit ได้อัตโนมัติ</p></div>
+    <div class="step-3d"><div class="step-num">05</div><h4>Fleet Monitoring</h4><p>ติดตาม vehicle หลายคัน แยกกลุ่มตามเส้นทางหรือพื้นที่</p></div>
+    <div class="step-3d"><div class="step-num">06</div><h4>Geofencing Auto</h4><p>สร้าง geofence อัตโนมัติจาก cluster ไม่ต้องวาดด้วยมือ</p></div>
   </div>
-
   <div style="margin-top:2rem">
-    <h3 style="margin-bottom:1rem">ปรับ ε ให้เหมาะสมกับ GPS</h3>
+    <h3 style="margin-bottom:1rem">ค่า ε ที่แนะนำตาม Use Case</h3>
     <table class="params-table">
-      <thead>
-        <tr>
-          <th>Use Case</th>
-          <th>ε (Haversine distance)</th>
-          <th>minPts</th>
-          <th>หมายเหตุ</th>
-        </tr>
-      </thead>
+      <thead><tr><th>Use Case</th><th>ε (Haversine)</th><th>minPts</th><th>หมายเหตุ</th></tr></thead>
       <tbody>
-        <tr>
-          <td>คนเดินเท้า</td>
-          <td><span class="tag">50–100 m</span></td>
-          <td><span class="tag">5–10</span></td>
-          <td>จุดหยุดเล็ก เช่น ร้านค้า</td>
-        </tr>
-        <tr>
-          <td>รถยนต์</td>
-          <td><span class="tag">200–500 m</span></td>
-          <td><span class="tag">3–5</span></td>
-          <td>ที่จอดรถ, ปั๊มน้ำมัน</td>
-        </tr>
-        <tr>
-          <td>เรือ / เครื่องบิน</td>
-          <td><span class="tag">1–5 km</span></td>
-          <td><span class="tag">2–4</span></td>
-          <td>ท่าเทียบเรือ, สนามบิน</td>
-        </tr>
-        <tr>
-          <td>Fleet (เมือง)</td>
-          <td><span class="tag">100–300 m</span></td>
-          <td><span class="tag">5+</span></td>
-          <td>depot, จุดส่งสินค้า</td>
-        </tr>
+        <tr><td>คนเดินเท้า</td><td><span class="tag">50–100 m</span></td><td><span class="tag">5–10</span></td><td>จุดหยุดเล็ก เช่น ร้านค้า</td></tr>
+        <tr><td>รถยนต์</td><td><span class="tag">200–500 m</span></td><td><span class="tag">3–5</span></td><td>ที่จอดรถ, ปั๊มน้ำมัน</td></tr>
+        <tr><td>เรือ / เครื่องบิน</td><td><span class="tag">1–5 km</span></td><td><span class="tag">2–4</span></td><td>ท่าเทียบเรือ, สนามบิน</td></tr>
+        <tr><td>Fleet (เมือง)</td><td><span class="tag">100–300 m</span></td><td><span class="tag">5+</span></td><td>depot, จุดส่งสินค้า</td></tr>
       </tbody>
     </table>
   </div>
@@ -657,561 +519,891 @@
 
 <div class="divider"></div>
 
-<!-- ══════════════════════════════════
-     SECTION 5 — Complexity & Variants
-══════════════════════════════════ -->
+<!-- ═══ SEC 5 — Variants ═══ -->
 <section>
   <p class="section-label">05 — Algorithm Variants</p>
-  <h2>DBSCAN และ Variants สำหรับ GPS</h2>
-  <p class="lead">
-    DBSCAN ดั้งเดิมมี time complexity O(n log n) (ด้วย spatial index) แต่สำหรับ realtime GPS
-    มี variants ที่เหมาะกว่า
-  </p>
+  <h2>DBSCAN Variants สำหรับ GPS</h2>
   <div class="cards">
-    <div class="card" style="border-top:3px solid #3b82f6">
-      <div class="card-icon">🔵</div>
-      <h3>DBSCAN</h3>
-      <span class="chip">Batch</span>
-      <p style="margin-top:.5rem">ประมวลผลทีเดียวทั้งชุดข้อมูล เหมาะสำหรับวิเคราะห์ย้อนหลัง</p>
-      <div class="formula-box" style="margin-top:.75rem;font-size:.8rem">O(n log n) with k-d tree</div>
-    </div>
-    <div class="card" style="border-top:3px solid #10b981">
-      <div class="card-icon">🟢</div>
-      <h3>Incremental DBSCAN</h3>
-      <span class="chip">Streaming</span>
-      <p style="margin-top:.5rem">อัปเดต cluster เมื่อมีจุดใหม่เข้ามา ไม่ต้อง recompute ทั้งหมด</p>
-      <div class="formula-box" style="margin-top:.75rem;font-size:.8rem">O(n) per new point (avg)</div>
-    </div>
-    <div class="card" style="border-top:3px solid #f59e0b">
-      <div class="card-icon">🟡</div>
-      <h3>ST-DBSCAN</h3>
-      <span class="chip">Spatio-Temporal</span>
-      <p style="margin-top:.5rem">เพิ่ม temporal dimension — จับกลุ่มเฉพาะจุดที่ใกล้กันในเวลาด้วย</p>
-      <div class="formula-box" style="margin-top:.75rem;font-size:.8rem">dist(p,q) ≤ ε AND |t_p - t_q| ≤ ε₂</div>
-    </div>
-    <div class="card" style="border-top:3px solid #8b5cf6">
-      <div class="card-icon">🟣</div>
-      <h3>HDBSCAN</h3>
-      <span class="chip">Hierarchical</span>
-      <p style="margin-top:.5rem">ไม่ต้องตั้ง ε เอง สร้าง cluster hierarchy หา stable cluster อัตโนมัติ</p>
-      <div class="formula-box" style="margin-top:.75rem;font-size:.8rem">mreach(p,q) = max(core(p), core(q), d(p,q))</div>
-    </div>
+    <div class="card" style="border-top:3px solid #3b82f6"><div class="card-icon">🔵</div><h3>DBSCAN</h3><span class="chip">Batch</span><p style="margin-top:.5rem">ประมวลผลทีเดียวทั้งชุด เหมาะวิเคราะห์ย้อนหลัง</p><div class="formula-box" style="margin-top:.7rem;font-size:.78rem">O(n log n) with k-d tree</div></div>
+    <div class="card" style="border-top:3px solid #10b981"><div class="card-icon">🟢</div><h3>Incremental DBSCAN</h3><span class="chip">Streaming</span><p style="margin-top:.5rem">อัปเดต cluster เมื่อมีจุดใหม่ ไม่ต้อง recompute ทั้งหมด</p><div class="formula-box" style="margin-top:.7rem;font-size:.78rem">O(n) per new point (avg)</div></div>
+    <div class="card" style="border-top:3px solid #f59e0b"><div class="card-icon">🟡</div><h3>ST-DBSCAN</h3><span class="chip">Spatio-Temporal</span><p style="margin-top:.5rem">เพิ่ม temporal dimension — จับกลุ่มเฉพาะจุดที่ใกล้กันในเวลาด้วย</p><div class="formula-box" style="margin-top:.7rem;font-size:.78rem">dist(p,q) ≤ ε AND |t_p-t_q| ≤ ε₂</div></div>
+    <div class="card" style="border-top:3px solid #8b5cf6"><div class="card-icon">🟣</div><h3>HDBSCAN</h3><span class="chip">Hierarchical</span><p style="margin-top:.5rem">ไม่ต้องตั้ง ε เอง สร้าง cluster hierarchy หา stable cluster อัตโนมัติ</p><div class="formula-box" style="margin-top:.7rem;font-size:.78rem">mreach(p,q)=max(core(p),core(q),d(p,q))</div></div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- ══════════════════════════════════
-     SECTION 6 — References
-══════════════════════════════════ -->
+<!-- ═══ SEC 6 — Papers ═══ -->
 <section>
   <p class="section-label">06 — เอกสารอ้างอิง</p>
   <h2>Papers & References</h2>
-  <p class="lead">งานวิจัยสำคัญที่เป็นพื้นฐานของ GPS Analysis และ DBSCAN</p>
-
   <div class="papers">
-
     <div class="paper-card">
       <div class="authors">Ester, M., Kriegel, H.-P., Sander, J., & Xu, X. (1996)</div>
       <h4>A Density-Based Algorithm for Discovering Clusters in Large Spatial Databases with Noise</h4>
       <div class="venue">KDD-96, Proceedings of the 2nd International Conference on Knowledge Discovery and Data Mining, pp. 226–231</div>
-      <p>Paper ต้นกำเนิดของ DBSCAN นำเสนอแนวคิด ε-neighborhood, core/border/noise point และ algorithm หลัก ถูกอ้างอิงมากกว่า 25,000 ครั้ง ได้รับ Test of Time Award จาก ACM KDD 2014</p>
+      <p>Paper ต้นกำเนิด DBSCAN นำเสนอ ε-neighborhood, core/border/noise point อ้างอิงมากกว่า 25,000 ครั้ง ได้รับ Test of Time Award จาก ACM KDD 2014</p>
     </div>
-
     <div class="paper-card">
       <div class="authors">Li, Q., Zheng, Y., Xie, X., Chen, Y., Liu, W., & Ma, W.-Y. (2008)</div>
       <h4>Mining User Similarity Based on Location History</h4>
       <div class="venue">ACM SIGSPATIAL GIS 2008</div>
-      <p>แนะนำการใช้ Stay Point Detection บน GPS trajectory โดยนิยาม stay point เป็นบริเวณที่ผู้ใช้อยู่นานกว่า time threshold — เป็นพื้นฐานของ GPS × DBSCAN สมัยใหม่</p>
+      <p>แนะนำ Stay Point Detection บน GPS trajectory นิยาม stay point เป็นบริเวณที่ผู้ใช้อยู่นานกว่า time threshold — พื้นฐานของ GPS × DBSCAN สมัยใหม่</p>
     </div>
-
     <div class="paper-card">
       <div class="authors">Birant, D., & Kut, A. (2007)</div>
       <h4>ST-DBSCAN: An Algorithm for Clustering Spatial–Temporal Data</h4>
       <div class="venue">Data & Knowledge Engineering, 60(1), 208–221. Elsevier.</div>
-      <p>ขยาย DBSCAN เพิ่ม temporal dimension (ε₂) สำหรับข้อมูล spatio-temporal เช่น GPS trajectory ระบุ cluster เฉพาะที่ใกล้กันทั้งในพื้นที่และเวลา</p>
+      <p>ขยาย DBSCAN เพิ่ม temporal dimension (ε₂) สำหรับข้อมูล spatio-temporal ระบุ cluster เฉพาะที่ใกล้กันทั้งพื้นที่และเวลา</p>
     </div>
-
     <div class="paper-card">
       <div class="authors">Campello, R. J. G. B., Moulavi, D., & Sander, J. (2013)</div>
       <h4>Density-Based Clustering Based on Hierarchical Density Estimates</h4>
       <div class="venue">PAKDD 2013, LNCS 7819, pp. 160–172. Springer.</div>
-      <p>นำเสนอ HDBSCAN ที่ไม่ต้องกำหนด ε ล่วงหน้า สร้าง cluster tree และใช้ cluster stability เพื่อเลือก cluster ที่ดีที่สุด เหมาะกับ GPS ที่มี density ไม่สม่ำเสมอ</p>
+      <p>นำเสนอ HDBSCAN ไม่ต้องกำหนด ε ล่วงหน้า ใช้ cluster stability เลือก cluster ที่ดีที่สุด เหมาะกับ GPS ที่มี density ไม่สม่ำเสมอ</p>
     </div>
-
     <div class="paper-card">
       <div class="authors">Schubert, E., Sander, J., Ester, M., Kriegel, H.-P., & Xu, X. (2017)</div>
       <h4>DBSCAN Revisited, Revisited: Why and How You Should (Still) Use DBSCAN</h4>
       <div class="venue">ACM Transactions on Database Systems (TODS), 42(3), Article 19.</div>
-      <p>ทบทวน DBSCAN ฉบับครบรอบ 20 ปี อธิบายการเลือก ε และ minPts อย่างถูกต้อง การใช้ spatial index (k-d tree, R-tree) และ pitfalls ที่พบบ่อยในการ implement</p>
+      <p>ทบทวน DBSCAN ครบรอบ 20 ปี อธิบายการเลือก ε และ minPts อย่างถูกต้อง การใช้ spatial index และ pitfalls ที่พบบ่อย</p>
     </div>
-
     <div class="paper-card">
       <div class="authors">Zheng, Y. (2015)</div>
       <h4>Trajectory Data Mining: An Overview</h4>
       <div class="venue">ACM Transactions on Intelligent Systems and Technology (TIST), 6(3), Article 29.</div>
-      <p>ภาพรวมครบถ้วนของ GPS Trajectory Mining ครอบคลุม preprocessing, stay point detection, clustering, classification, pattern mining และ application domains</p>
+      <p>ภาพรวมครบถ้วนของ GPS Trajectory Mining ครอบคลุม preprocessing, stay point detection, clustering, classification และ application domains</p>
     </div>
-
     <div class="paper-card">
       <div class="authors">Ankerst, M., Breunig, M. M., Kriegel, H.-P., & Sander, J. (1999)</div>
       <h4>OPTICS: Ordering Points to Identify the Clustering Structure</h4>
       <div class="venue">ACM SIGMOD Record, 28(2), 49–60.</div>
-      <p>OPTICS เป็น extension ของ DBSCAN ที่จัดการ cluster ที่มี density ต่างกันได้ดีกว่า สร้าง reachability plot ให้มองเห็น hierarchy ของ cluster โดยไม่ต้องตั้ง ε ตายตัว</p>
+      <p>Extension ของ DBSCAN ที่จัดการ cluster ที่มี density ต่างกันได้ดีกว่า สร้าง reachability plot และไม่ต้องตั้ง ε ตายตัว</p>
     </div>
-
     <div class="paper-card">
       <div class="authors">Duckham, M., & Kulik, L. (2006)</div>
       <h4>Location Privacy and Location-Aware Computing</h4>
       <div class="venue">Dynamic & Mobile GIS: Investigating Change in Space and Time, CRC Press, pp. 35–51.</div>
-      <p>อภิปราย privacy implications ของ GPS tracking และ location data mining ซึ่งสำคัญมากในบริบทของ GPS Analyzer ที่ใช้งานจริง</p>
+      <p>อภิปราย privacy implications ของ GPS tracking และ location data mining สำคัญในบริบทของ GPS Analyzer ที่ใช้งานจริง</p>
     </div>
-
   </div>
 </section>
 
 <footer>
   <p>GPS Analyzer + DBSCAN — Interactive 3D Explainer</p>
-  <p style="margin-top:.5rem;color:#1e293b">Built with HTML5 Canvas · No external dependencies</p>
+  <p style="margin-top:.5rem;color:#1e293b">Built with HTML5 Canvas · No external dependencies · รองรับ GPS_Trip.json หลาย format</p>
 </footer>
 
-<!-- ══════════════════════════════════
+<!-- ═══════════════════════════════════
      SCRIPTS
-══════════════════════════════════ -->
+═══════════════════════════════════ -->
 <script>
-/* ─── HERO CANVAS — 3D Satellite Orbit ─── */
-(function(){
-  const canvas = document.getElementById('heroCanvas');
-  const ctx = canvas.getContext('2d');
-  let W, H;
-  const stars = [];
-  const sats = [];
-  const earthR = () => Math.min(W, H) * 0.18;
+'use strict';
 
-  function resize(){
-    W = canvas.width = canvas.offsetWidth;
-    H = canvas.height = canvas.offsetHeight;
+/* ════════════════════════════════
+   UTILITIES
+════════════════════════════════ */
+function toastMsg(msg, type='success'){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast ${type} show`;
+  setTimeout(()=>t.className='toast', 3500);
+}
+
+function haversine(lat1, lon1, lat2, lon2){
+  const R = 6371000;
+  const dLat = (lat2-lat1)*Math.PI/180;
+  const dLon = (lon2-lon1)*Math.PI/180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+function fmtDuration(secs){
+  if(!secs||isNaN(secs)) return '—';
+  const h = Math.floor(secs/3600), m = Math.floor((secs%3600)/60), s = Math.floor(secs%60);
+  if(h>0) return `${h}h ${m}m`;
+  if(m>0) return `${m}m ${s}s`;
+  return `${s}s`;
+}
+
+function fmtNum(n, dec=1){
+  if(n===null||n===undefined||isNaN(n)) return '—';
+  return n.toFixed(dec);
+}
+
+/* ════════════════════════════════
+   GPS JSON PARSER — multi-format
+════════════════════════════════ */
+function parseGPS(raw){
+  let arr = raw;
+
+  // Unwrap common wrappers
+  if(!Array.isArray(raw)){
+    const keys = ['locations','points','coords','data','trips','track','features','coordinates','waypoints','gps','records'];
+    for(const k of keys){
+      if(Array.isArray(raw[k])){ arr = raw[k]; break; }
+    }
+    // GeoJSON FeatureCollection
+    if(raw.type==='FeatureCollection' && Array.isArray(raw.features)){
+      const coords = [];
+      raw.features.forEach(f=>{
+        if(f.geometry?.type==='LineString') f.geometry.coordinates.forEach(c=>coords.push({lon:c[0],lat:c[1],alt:c[2]||0}));
+        if(f.geometry?.type==='Point') coords.push({lon:f.geometry.coordinates[0],lat:f.geometry.coordinates[1]});
+      });
+      if(coords.length) return coords;
+    }
+    // GeoJSON LineString
+    if(raw.type==='LineString' && Array.isArray(raw.coordinates)){
+      return raw.coordinates.map(c=>({lon:c[0],lat:c[1],alt:c[2]||0}));
+    }
+    // trips array — support pings, points, coords, locations, waypoints
+    if(Array.isArray(raw.trips)){
+      arr = raw.trips.flatMap(t=>
+        Array.isArray(t.pings)     ? t.pings.map(p=>({...p, _trip_id:t.trip_id, _vehicle:t.vehicle_name, _scenario:t.scenario})) :
+        Array.isArray(t.points)    ? t.points    :
+        Array.isArray(t.coords)    ? t.coords    :
+        Array.isArray(t.locations) ? t.locations :
+        Array.isArray(t.waypoints) ? t.waypoints : []
+      );
+    }
   }
-  window.addEventListener('resize', resize);
-  resize();
+  if(!Array.isArray(arr)||arr.length===0) return null;
 
-  for(let i=0;i<200;i++){
-    stars.push({ x:Math.random(), y:Math.random(), r:Math.random()*1.5+.3, a:Math.random() });
+  return arr.map((p,i)=>{
+    // Flatten nested coords
+    const src = (p.coords||p.coordinate||p.location||p.position||p);
+
+    const lat = parseFloat(src.lat ?? src.latitude ?? src.LAT ?? src.Lat ?? src.y ?? 0);
+    const lon = parseFloat(src.lon ?? src.lng ?? src.longitude ?? src.LON ?? src.Lon ?? src.x ?? 0);
+    const alt = parseFloat(src.alt ?? src.altitude ?? src.elevation ?? src.elev ?? src.z ?? 0);
+    const spd = parseFloat(p.speed_kmh ?? p.speed ?? p.Speed ?? p.velocity ?? src.speed ?? src.speed_kmh ?? -1);
+    const acc = parseFloat(p.accuracy ?? p.acc ?? src.accuracy ?? 0);
+    const hdg = parseFloat(p.heading ?? p.bearing ?? p.course ?? src.heading ?? 0);
+
+    // Timestamp
+    let ts = null;
+    const tsRaw = p.timestamp ?? p.time ?? p.ts ?? p.datetime ?? p.date ?? p.created_at ?? p.recordedAt ?? src.timestamp ?? src.time;
+    if(tsRaw){
+      if(typeof tsRaw === 'number') ts = tsRaw > 1e10 ? tsRaw : tsRaw*1000;
+      else ts = new Date(tsRaw).getTime();
+    }
+
+    const label  = p.label ?? p.tag ?? p.type ?? p.category ?? p._scenario ?? null;
+    const tripId = p._trip_id ?? p.trip_id ?? null;
+    const vehicle= p._vehicle ?? p.vehicle_name ?? null;
+
+    return { lat, lon, alt, speed: spd, accuracy: acc, heading: hdg, timestamp: ts, idx: i, label, tripId, vehicle };
+  }).filter(p => p.lat !== 0 || p.lon !== 0)
+    .filter(p => p.lat >= -90 && p.lat <= 90 && p.lon >= -180 && p.lon <= 180);
+}
+
+/* ════════════════════════════════
+   DBSCAN on GPS (Haversine)
+════════════════════════════════ */
+function dbscanGPS(points, epsMeter, minPts){
+  const n = points.length;
+  const labels = new Int32Array(n).fill(-2); // -2=unvisited, -1=noise
+  const types = new Array(n).fill('unvisited');
+  let clId = 0;
+
+  function neighbors(i){
+    const res=[];
+    for(let j=0;j<n;j++){
+      if(i===j) continue;
+      if(haversine(points[i].lat,points[i].lon,points[j].lat,points[j].lon)<=epsMeter) res.push(j);
+    }
+    return res;
   }
 
-  const COLORS = ['#3b82f6','#10b981','#f59e0b','#8b5cf6'];
-  for(let i=0;i<4;i++){
-    const a = (Math.PI*2/4)*i;
-    sats.push({
-      angle: a,
-      speed: 0.004 + Math.random()*0.003,
-      orbitA: earthR() * (2.2 + i*0.4),
-      orbitB: earthR() * (0.7 + i*0.2),
-      tilt: (Math.PI/6)*i,
-      color: COLORS[i],
-      trail: []
+  for(let i=0;i<n;i++){
+    if(labels[i]!==-2) continue;
+    const nb = neighbors(i);
+    if(nb.length<minPts){ labels[i]=-1; types[i]='noise'; continue; }
+    labels[i]=clId; types[i]='core';
+    const queue=[...nb];
+    while(queue.length){
+      const j=queue.shift();
+      if(labels[j]===-1){ labels[j]=clId; types[j]='border'; }
+      if(labels[j]!==-2) continue;
+      labels[j]=clId; types[j]='border';
+      const nb2=neighbors(j);
+      if(nb2.length>=minPts){ types[j]='core'; queue.push(...nb2); }
+    }
+    clId++;
+  }
+
+  // Build cluster summaries
+  const clusters=[];
+  for(let id=0;id<clId;id++){
+    const pts=points.filter((_,i)=>labels[i]===id);
+    if(!pts.length) continue;
+    const cLat=pts.reduce((s,p)=>s+p.lat,0)/pts.length;
+    const cLon=pts.reduce((s,p)=>s+p.lon,0)/pts.length;
+    const speeds=pts.map(p=>p.speed).filter(s=>s>=0);
+    const avgSpd=speeds.length?speeds.reduce((a,b)=>a+b,0)/speeds.length:-1;
+    const ts=pts.map(p=>p.timestamp).filter(Boolean);
+    const dwellMs=ts.length>=2?(Math.max(...ts)-Math.min(...ts)):0;
+    clusters.push({id,pts,cLat,cLon,count:pts.length,avgSpeed:avgSpd,dwellMs});
+  }
+
+  return {labels, types, clusters, noiseCount: labels.filter(l=>l===-1).length};
+}
+
+/* ════════════════════════════════
+   SPEED CALC — fill missing speed
+════════════════════════════════ */
+function enrichSpeeds(points){
+  return points.map((p,i)=>{
+    if(p.speed>=0) return p;
+    if(i===0) return {...p,speed:0};
+    const prev=points[i-1];
+    const d=haversine(prev.lat,prev.lon,p.lat,p.lon);
+    const dt=p.timestamp&&prev.timestamp?(p.timestamp-prev.timestamp)/1000:1;
+    const spd=dt>0?d/dt*3.6:0;
+    return {...p, speed: Math.min(spd,300)};
+  });
+}
+
+/* ════════════════════════════════
+   ANALYSIS STATE
+════════════════════════════════ */
+let gpsPoints = null;
+let analysisResult = null;
+let mapLayers = { clusters: true, heatmap: false, epsRings: false };
+
+/* ════════════════════════════════
+   RUN FULL ANALYSIS
+════════════════════════════════ */
+function runAnalysis(){
+  if(!gpsPoints) return;
+  const epsMeter = +document.getElementById('an-eps').value;
+  const minPts   = +document.getElementById('an-min').value;
+  const speedThr = +document.getElementById('an-speed').value;
+
+  document.getElementById('loadingOverlay').classList.add('show');
+  setTimeout(()=>{
+    try {
+      const pts = gpsPoints.filter(p=> p.speed<=0 || p.speed<=speedThr || speedThr===0
+                                       ? true : true); // use all pts, filter for stay later
+
+      // Stay-only for DBSCAN
+      const stayPts = gpsPoints.filter(p=> p.speed<=speedThr);
+      const res = dbscanGPS(stayPts.length>=minPts*2 ? stayPts : gpsPoints, epsMeter, minPts);
+      analysisResult = { ...res, stayPts, epsMeter, minPts };
+
+      updateStats();
+      drawMap();
+      drawSpeedChart();
+      renderClusterList();
+      renderExplanation();
+    } catch(e) {
+      toastMsg('เกิดข้อผิดพลาดในการวิเคราะห์: '+e.message, 'error');
+    }
+    document.getElementById('loadingOverlay').classList.remove('show');
+  }, 50);
+}
+
+/* ════════════════════════════════
+   UPDATE STATS CARDS
+════════════════════════════════ */
+function updateStats(){
+  if(!gpsPoints) return;
+  const pts = gpsPoints;
+  document.getElementById('sv-points').textContent = pts.length.toLocaleString();
+
+  // Total distance
+  let dist=0;
+  for(let i=1;i<pts.length;i++) dist+=haversine(pts[i-1].lat,pts[i-1].lon,pts[i].lat,pts[i].lon);
+  document.getElementById('sv-dist').textContent = (dist/1000).toFixed(2);
+
+  // Duration
+  const ts=pts.map(p=>p.timestamp).filter(Boolean);
+  let dur='—';
+  if(ts.length>=2) dur=fmtDuration((Math.max(...ts)-Math.min(...ts))/1000);
+  document.getElementById('sv-duration').textContent=dur;
+
+  // Speed
+  const speeds=pts.map(p=>p.speed).filter(s=>s>=0);
+  const avgSpd=speeds.length?speeds.reduce((a,b)=>a+b,0)/speeds.length:0;
+  document.getElementById('sv-avgspeed').textContent=fmtNum(avgSpd)+'<span style="font-size:.8rem"> km/h</span>';
+  document.getElementById('sv-avgspeed').innerHTML=fmtNum(avgSpd)+'<span style="font-size:.8rem;color:#64748b"> km/h</span>';
+  document.getElementById('sv-maxspeed').textContent=fmtNum(Math.max(...speeds,0));
+
+  if(analysisResult)
+    document.getElementById('sv-clusters').textContent=analysisResult.clusters.length;
+}
+
+/* ════════════════════════════════
+   PROJECT GPS → CANVAS XY
+════════════════════════════════ */
+function projectPoints(pts, W, H, pad=30){
+  const lats=pts.map(p=>p.lat), lons=pts.map(p=>p.lon);
+  const minLat=Math.min(...lats), maxLat=Math.max(...lats);
+  const minLon=Math.min(...lons), maxLon=Math.max(...lons);
+  const latR=maxLat-minLat||0.001, lonR=maxLon-minLon||0.001;
+  const scale=Math.min((W-pad*2)/lonR,(H-pad*2)/latR);
+  const offX=(W-lonR*scale)/2, offY=(H-latR*scale)/2;
+  return pts.map(p=>({
+    ...p,
+    px: offX+(p.lon-minLon)*scale,
+    py: offY+(maxLat-p.lat)*scale
+  }));
+}
+
+/* ════════════════════════════════
+   DRAW MAP
+════════════════════════════════ */
+const CLUSTER_COLORS=['#3b82f6','#10b981','#f59e0b','#8b5cf6','#ec4899','#f97316','#06b6d4','#84cc16','#a78bfa'];
+
+function drawMap(){
+  const canvas=document.getElementById('mapCanvas');
+  const wrap=document.getElementById('mapWrap');
+  const W=wrap.offsetWidth; const H=Math.max(360, Math.round(W*0.65));
+  canvas.width=W; canvas.height=H;
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,W,H);
+
+  // Background
+  ctx.fillStyle='#070d1a'; ctx.fillRect(0,0,W,H);
+  // Grid
+  ctx.strokeStyle='rgba(30,41,59,.5)'; ctx.lineWidth=1;
+  for(let x=0;x<W;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+  for(let y=0;y<H;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+
+  if(!gpsPoints||!gpsPoints.length) return;
+  const proj=projectPoints(gpsPoints, W, H);
+
+  // Heatmap
+  if(mapLayers.heatmap){
+    proj.forEach(p=>{
+      const g=ctx.createRadialGradient(p.px,p.py,0,p.px,p.py,18);
+      g.addColorStop(0,'rgba(239,68,68,.25)');
+      g.addColorStop(1,'rgba(239,68,68,0)');
+      ctx.beginPath();ctx.arc(p.px,p.py,18,0,Math.PI*2);
+      ctx.fillStyle=g;ctx.fill();
     });
   }
 
-  let t = 0;
-  const gpsDots = [];
-  for(let i=0;i<60;i++){
-    const ang = Math.random()*Math.PI*2;
-    const r = earthR() * (1.05 + Math.random()*0.15);
-    gpsDots.push({ ang, r, alpha: Math.random(), speed: (Math.random()-.5)*0.003 });
+  // Trajectory line
+  ctx.beginPath();
+  proj.forEach((p,i)=>{ if(i===0) ctx.moveTo(p.px,p.py); else ctx.lineTo(p.px,p.py); });
+  ctx.strokeStyle='rgba(59,130,246,.6)'; ctx.lineWidth=2; ctx.lineJoin='round'; ctx.stroke();
+
+  // Cluster halos + ε rings
+  if(analysisResult && mapLayers.clusters){
+    analysisResult.clusters.forEach((cl,ci)=>{
+      const col=CLUSTER_COLORS[ci%CLUSTER_COLORS.length];
+      // Project cluster center
+      const [clLat,clLon]=[cl.cLat,cl.cLon];
+      const lats=gpsPoints.map(p=>p.lat), lons=gpsPoints.map(p=>p.lon);
+      const minLat=Math.min(...lats), maxLat=Math.max(...lats);
+      const minLon=Math.min(...lons), maxLon=Math.max(...lons);
+      const latR=maxLat-minLat||0.001, lonR=maxLon-minLon||0.001;
+      const scale=Math.min((W-60)/lonR,(H-60)/latR);
+      const offX=(W-lonR*scale)/2, offY=(H-latR*scale)/2;
+      const cx=offX+(clLon-minLon)*scale;
+      const cy=offY+(maxLat-clLat)*scale;
+
+      // Halo
+      const grd=ctx.createRadialGradient(cx,cy,0,cx,cy,30+cl.count*2);
+      grd.addColorStop(0,col+'44');
+      grd.addColorStop(1,col+'00');
+      ctx.beginPath();ctx.arc(cx,cy,30+cl.count*2,0,Math.PI*2);
+      ctx.fillStyle=grd;ctx.fill();
+
+      if(mapLayers.epsRings){
+        // ε ring (approx pixel radius)
+        const epsScale=analysisResult.epsMeter/1000*scale*(1/111.32);
+        ctx.beginPath();ctx.arc(cx,cy,epsScale,0,Math.PI*2);
+        ctx.strokeStyle=col+'55';ctx.lineWidth=1;ctx.setLineDash([4,4]);ctx.stroke();ctx.setLineDash([]);
+      }
+
+      // Center marker
+      ctx.beginPath();ctx.arc(cx,cy,8,0,Math.PI*2);
+      ctx.fillStyle=col;ctx.fill();
+      ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();
+      ctx.fillStyle='#fff';ctx.font='bold 9px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(ci+1,cx,cy);
+    });
   }
 
-  function drawEarth(cx, cy){
-    const r = earthR();
-    const grd = ctx.createRadialGradient(cx-r*.3, cy-r*.3, r*.1, cx, cy, r);
-    grd.addColorStop(0,'#1e40af');
-    grd.addColorStop(.6,'#0f2d5a');
-    grd.addColorStop(1,'#060f24');
-    ctx.beginPath();
-    ctx.arc(cx,cy,r,0,Math.PI*2);
-    ctx.fillStyle = grd;
-    ctx.fill();
+  // GPS dots — color by label if available, else by cluster
+  const LABEL_COLORS={normal:'#3b82f6',traffic:'#f59e0b',auth_stop:'#10b981',unauth_stop:'#ef4444',detour:'#8b5cf6'};
+  const hasLabels=gpsPoints.some(p=>p.label);
+  if(analysisResult){
+    proj.forEach((p,i)=>{
+      let col;
+      if(hasLabels && p.label){
+        col=LABEL_COLORS[p.label]||'#94a3b8';
+      } else {
+        const lbl=analysisResult.labels[i]??-1;
+        col=lbl>=0?CLUSTER_COLORS[lbl%CLUSTER_COLORS.length]:lbl===-1?'#ef4444':'#3b82f6';
+      }
+      ctx.beginPath();ctx.arc(p.px,p.py,3,0,Math.PI*2);
+      ctx.fillStyle=col+'cc';ctx.fill();
+    });
+  } else {
+    proj.forEach(p=>{
+      const s=Math.max(0,Math.min(1,(p.speed||0)/80));
+      const r=Math.round(59+s*180), g=Math.round(130-s*80), b=Math.round(246-s*200);
+      ctx.beginPath();ctx.arc(p.px,p.py,2,0,Math.PI*2);
+      ctx.fillStyle=`rgba(${r},${g},${b},.7)`;ctx.fill();
+    });
+  }
 
-    ctx.save();
-    ctx.clip();
-    ctx.fillStyle = 'rgba(16,185,129,.25)';
-    ctx.beginPath(); ctx.ellipse(cx-r*.2,cy-r*.1,r*.35,r*.2,-0.5,0,Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(cx+r*.3,cy+r*.2,r*.25,r*.15,0.8,0,Math.PI*2); ctx.fill();
+  // Start / End markers
+  if(proj.length>=1){
+    ctx.beginPath();ctx.arc(proj[0].px,proj[0].py,7,0,Math.PI*2);
+    ctx.fillStyle='#10b981';ctx.fill();
+    ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();
+    ctx.fillStyle='#fff';ctx.font='bold 8px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText('S',proj[0].px,proj[0].py);
+
+    const last=proj[proj.length-1];
+    ctx.beginPath();ctx.arc(last.px,last.py,7,0,Math.PI*2);
+    ctx.fillStyle='#ef4444';ctx.fill();
+    ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();
+    ctx.fillText('E',last.px,last.py);
+  }
+
+  // Update legend: show label colors if data has labels
+  const leg=document.getElementById('mapLegend');
+  if(gpsPoints && gpsPoints.some(p=>p.label)){
+    const LABEL_TH={normal:'normal',traffic:'traffic',auth_stop:'auth_stop',unauth_stop:'unauth_stop',detour:'detour'};
+    const LABEL_C={normal:'#3b82f6',traffic:'#f59e0b',auth_stop:'#10b981',unauth_stop:'#ef4444',detour:'#8b5cf6'};
+    const used=[...new Set(gpsPoints.map(p=>p.label).filter(Boolean))];
+    leg.innerHTML=`<div class="map-legend-item"><div class="map-legend-line" style="background:#3b82f6"></div>เส้นทาง</div>
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:#10b981"></div>Start</div>
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:#ef4444"></div>End</div>`
+      +used.map(l=>`<div class="map-legend-item"><div class="map-legend-dot" style="background:${LABEL_C[l]||'#94a3b8'}"></div>${LABEL_TH[l]||l}</div>`).join('');
+  } else {
+    leg.innerHTML=`<div class="map-legend-item"><div class="map-legend-line" style="background:#3b82f6"></div>เส้นทาง</div>
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:#10b981"></div>Start</div>
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:#ef4444"></div>End</div>
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:#f59e0b"></div>Cluster</div>
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:#475569"></div>Noise</div>`;
+  }
+}
+
+/* ════════════════════════════════
+   SPEED CHART
+════════════════════════════════ */
+function drawSpeedChart(){
+  if(!gpsPoints) return;
+  const canvas=document.getElementById('speedChart');
+  const W=canvas.parentElement.offsetWidth-32; // padding
+  canvas.width=W; canvas.height=100;
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,W,100);
+
+  const speeds=gpsPoints.map(p=>p.speed>=0?p.speed:0);
+  const maxS=Math.max(...speeds,1);
+  const step=W/speeds.length;
+
+  // Fill
+  ctx.beginPath();ctx.moveTo(0,100);
+  speeds.forEach((s,i)=>ctx.lineTo(i*step,100-(s/maxS)*85));
+  ctx.lineTo(speeds.length*step,100);ctx.closePath();
+  const grd=ctx.createLinearGradient(0,0,0,100);
+  grd.addColorStop(0,'rgba(59,130,246,.45)');grd.addColorStop(1,'rgba(59,130,246,.03)');
+  ctx.fillStyle=grd;ctx.fill();
+
+  // Line
+  ctx.beginPath();
+  speeds.forEach((s,i)=>{ const x=i*step,y=100-(s/maxS)*85; if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y); });
+  ctx.strokeStyle='#3b82f6';ctx.lineWidth=1.5;ctx.stroke();
+
+  // Stay markers
+  if(analysisResult){
+    const staySpeedThr=+document.getElementById('an-speed').value;
+    // Map stay pts back to full index
+    gpsPoints.forEach((p,i)=>{
+      if(p.speed>=0 && p.speed<=staySpeedThr){
+        const x=i*step, y=100-(speeds[i]/maxS)*85;
+        ctx.beginPath();ctx.arc(x,y,3.5,0,Math.PI*2);
+        ctx.fillStyle='#f59e0b';ctx.fill();
+      }
+    });
+  }
+
+  // Max label
+  ctx.fillStyle='#64748b';ctx.font='10px sans-serif';ctx.textAlign='left';
+  ctx.fillText(fmtNum(maxS,0)+' km/h',4,12);
+}
+
+/* ════════════════════════════════
+   CLUSTER LIST
+════════════════════════════════ */
+function renderClusterList(){
+  if(!analysisResult) return;
+  const list=document.getElementById('clusterList');
+  if(!analysisResult.clusters.length){
+    list.innerHTML='<div style="color:#475569;font-size:.85rem;padding:.5rem">ไม่พบ Cluster — ลอง ลด ε หรือลด minPts</div>';
+    return;
+  }
+  list.innerHTML=analysisResult.clusters.map((cl,i)=>{
+    const col=CLUSTER_COLORS[i%CLUSTER_COLORS.length];
+    const dwell=cl.dwellMs>0?fmtDuration(cl.dwellMs/1000):'—';
+    const spd=cl.avgSpeed>=0?fmtNum(cl.avgSpeed)+' km/h':'—';
+
+    // Label breakdown
+    const labelCounts={};
+    cl.pts.forEach(p=>{ if(p.label){ labelCounts[p.label]=(labelCounts[p.label]||0)+1; } });
+    const labelHTML=Object.entries(labelCounts)
+      .sort((a,b)=>b[1]-a[1])
+      .map(([lbl,cnt])=>{
+        const lblColor={normal:'#3b82f6',traffic:'#f59e0b',auth_stop:'#10b981',unauth_stop:'#ef4444',detour:'#8b5cf6'}[lbl]||'#64748b';
+        return `<span style="background:${lblColor}22;color:${lblColor};border:1px solid ${lblColor}44;border-radius:4px;padding:1px 6px;font-size:.72rem;margin-right:3px">${lbl}×${cnt}</span>`;
+      }).join('');
+
+    const scenarios=[...new Set(cl.pts.map(p=>p.tripId).filter(Boolean))];
+    const tripInfo=scenarios.length?`<br><span style="color:#475569;font-size:.75rem">trips: ${scenarios.slice(0,3).join(', ')}${scenarios.length>3?'…':''}</span>`:'';
+
+    return `<div class="cluster-item" style="flex-direction:column;align-items:flex-start;gap:.4rem">
+      <div style="display:flex;align-items:center;gap:.6rem;width:100%">
+        <div class="cluster-color" style="background:${col}"></div>
+        <div class="ci-label">Cluster ${i+1}</div>
+        <div class="ci-detail" style="margin-left:auto">${cl.count} จุด · dwell ${dwell} · ${spd}</div>
+      </div>
+      <div>${labelHTML||'<span style="color:#475569;font-size:.75rem">ไม่มี label</span>'}${tripInfo}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ════════════════════════════════
+   EXPLANATION (Natural Language)
+════════════════════════════════ */
+function renderExplanation(){
+  if(!gpsPoints||!analysisResult) return;
+
+  const pts=gpsPoints;
+  const cl=analysisResult.clusters;
+  const speeds=pts.map(p=>p.speed).filter(s=>s>=0);
+  const avgSpd=speeds.length?speeds.reduce((a,b)=>a+b,0)/speeds.length:0;
+  const maxSpd=speeds.length?Math.max(...speeds):0;
+  let dist=0;
+  for(let i=1;i<pts.length;i++) dist+=haversine(pts[i-1].lat,pts[i-1].lon,pts[i].lat,pts[i].lon);
+
+  const ts=pts.map(p=>p.timestamp).filter(Boolean);
+  const durSec=ts.length>=2?(Math.max(...ts)-Math.min(...ts))/1000:0;
+
+  const noiseRatio=analysisResult.noiseCount/Math.max(analysisResult.stayPts?.length||pts.length,1);
+
+  let lines=[];
+
+  // Overview
+  lines.push(`<p>พบข้อมูล GPS ทั้งหมด <span class="exp-highlight">${pts.length.toLocaleString()} จุด</span>
+    ${durSec?` ครอบคลุมระยะเวลา <span class="exp-highlight">${fmtDuration(durSec)}</span>`:''}
+    ระยะทางรวมประมาณ <span class="exp-highlight">${(dist/1000).toFixed(2)} km</span></p>`);
+
+  // Speed profile
+  if(speeds.length){
+    let profile='';
+    if(avgSpd<10) profile='ส่วนใหญ่เป็นการเดินเท้าหรือหยุดนิ่ง';
+    else if(avgSpd<30) profile='ความเร็วต่ำ เหมาะกับในเมืองหรือจราจรติดขัด';
+    else if(avgSpd<80) profile='ความเร็วปานกลาง น่าจะเป็นรถยนต์บนถนนทั่วไป';
+    else profile='ความเร็วสูง น่าจะเป็นทางด่วนหรือทางพิเศษ';
+    lines.push(`<p>ความเร็วเฉลี่ย <span class="exp-highlight">${fmtNum(avgSpd)} km/h</span> สูงสุด <span class="exp-highlight">${fmtNum(maxSpd)} km/h</span> — ${profile}</p>`);
+  }
+
+  // Label breakdown (ถ้ามี)
+  const allLabels=pts.map(p=>p.label).filter(Boolean);
+  if(allLabels.length){
+    const lc={};
+    allLabels.forEach(l=>lc[l]=(lc[l]||0)+1);
+    const LABEL_TH={normal:'ปกติ',traffic:'จราจรหนาแน่น',auth_stop:'จอดในเขตอนุญาต',unauth_stop:'จอดนอกเขต',detour:'เบี่ยงเส้นทาง'};
+    const lblLines=Object.entries(lc).sort((a,b)=>b[1]-a[1]).map(([l,n])=>{
+      const lblColor={normal:'#3b82f6',traffic:'#f59e0b',auth_stop:'#10b981',unauth_stop:'#ef4444',detour:'#8b5cf6'}[l]||'#64748b';
+      const pct=Math.round(n/allLabels.length*100);
+      return `<span style="color:${lblColor}">${LABEL_TH[l]||l} (${n} จุด, ${pct}%)</span>`;
+    }).join(' · ');
+    lines.push(`<p>📌 การแจกแจง Label: ${lblLines}</p>`);
+
+    // Anomaly highlights
+    const unauthCount=lc['unauth_stop']||0;
+    const detourCount=lc['detour']||0;
+    const trafficCount=lc['traffic']||0;
+    if(unauthCount>0) lines.push(`<p>⚠️ พบ <span class="exp-highlight" style="color:#ef4444">unauth_stop ${unauthCount} จุด</span> — ยานพาหนะจอดในพื้นที่ที่ไม่ได้รับอนุญาต ควรตรวจสอบ</p>`);
+    if(detourCount>0) lines.push(`<p>⚠️ พบ <span class="exp-highlight" style="color:#8b5cf6">detour ${detourCount} จุด</span> — ยานพาหนะเบี่ยงออกจากเส้นทางที่กำหนด</p>`);
+    if(trafficCount>0) lines.push(`<p>🚦 พบ <span class="exp-highlight" style="color:#f59e0b">traffic ${trafficCount} จุด</span> — ช่วงที่ความเร็วต่ำเนื่องจากการจราจร</p>`);
+  }
+
+  // Vehicles
+  const vehicles=[...new Set(pts.map(p=>p.vehicle).filter(Boolean))];
+  if(vehicles.length) lines.push(`<p>🚗 ยานพาหนะในข้อมูล: <span class="exp-highlight">${vehicles.join(', ')}</span></p>`);
+
+  // Clusters
+  if(cl.length===0){
+    lines.push(`<p>DBSCAN (ε=${analysisResult.epsMeter}m, minPts=${analysisResult.minPts}) <span style="color:#ef4444">ไม่พบ Cluster</span> — ลองปรับเพิ่ม ε หรือลด minPts เพื่อหา stay points</p>`);
+  } else {
+    lines.push(`<p>DBSCAN พบ <span class="exp-highlight">${cl.length} stay point</span> (สถานที่ที่อุปกรณ์หยุดหรือเคลื่อนที่ช้า) :</p>`);
+    cl.slice(0,5).forEach((c,i)=>{
+      const dwell=c.dwellMs>0?` หยุดนาน ${fmtDuration(c.dwellMs/1000)}`:'';
+      const spd=c.avgSpeed>=0?` เฉลี่ย ${fmtNum(c.avgSpeed)} km/h`:'';
+      // Dominant label in cluster
+      const lc2={}; c.pts.forEach(p=>{if(p.label) lc2[p.label]=(lc2[p.label]||0)+1;});
+      const topLabel=Object.entries(lc2).sort((a,b)=>b[1]-a[1])[0]?.[0]||'';
+      const lblColor={normal:'#3b82f6',traffic:'#f59e0b',auth_stop:'#10b981',unauth_stop:'#ef4444',detour:'#8b5cf6'}[topLabel]||'#94a3b8';
+      const lblBadge=topLabel?` <span style="color:${lblColor};font-size:.8rem">[${topLabel}]</span>`:'';
+      lines.push(`<p>　• <span class="exp-highlight">Cluster ${i+1}</span>${lblBadge} — ${c.count} จุด${dwell}${spd}</p>`);
+    });
+    if(cl.length>5) lines.push(`<p>　… และอีก ${cl.length-5} cluster</p>`);
+  }
+
+  // Noise
+  if(noiseRatio>0.3) lines.push(`<p>มีจุด Noise/Outlier สูง (~${Math.round(noiseRatio*100)}%) อาจเกิดจาก GPS signal อ่อน หรือการเคลื่อนที่เร็วมาก ลองเพิ่ม ε เพื่อลด noise</p>`);
+
+  // Quality hints
+  const hasTimestamp=pts.filter(p=>p.timestamp).length;
+  if(hasTimestamp===0) lines.push(`<p style="color:#64748b">⚠️ ข้อมูลไม่มี timestamp — ไม่สามารถคำนวณ dwell time และ duration ได้</p>`);
+  const hasSpeed=pts.filter(p=>p.speed>=0).length;
+  if(hasSpeed===0) lines.push(`<p style="color:#64748b">ℹ️ ข้อมูลไม่มีค่า speed โดยตรง — คำนวณจาก displacement แทน</p>`);
+
+  document.getElementById('explanationText').innerHTML=lines.join('');
+}
+
+/* ════════════════════════════════
+   FILE HANDLING
+════════════════════════════════ */
+function handleFile(file){
+  if(!file||!file.name.endsWith('.json')){
+    toastMsg('กรุณาเลือกไฟล์ .json', 'error'); return;
+  }
+  document.getElementById('loadingOverlay').classList.add('show');
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try {
+      const raw=JSON.parse(e.target.result);
+      const pts=parseGPS(raw);
+      if(!pts||pts.length<3){
+        document.getElementById('loadingOverlay').classList.remove('show');
+        toastMsg('ไม่พบข้อมูล GPS ที่ valid ในไฟล์นี้ (ต้องการ lat/lon)', 'error');
+        return;
+      }
+      gpsPoints=enrichSpeeds(pts);
+      document.getElementById('analysis-filename').textContent=`📄 ${file.name}`;
+      document.getElementById('analysis-panel').classList.add('visible');
+      document.getElementById('analysis-panel').scrollIntoView({behavior:'smooth',block:'start'});
+      document.getElementById('loadingOverlay').classList.remove('show');
+      toastMsg(`✓ โหลดสำเร็จ ${pts.length.toLocaleString()} จุด GPS`, 'success');
+      runAnalysis();
+    } catch(err){
+      document.getElementById('loadingOverlay').classList.remove('show');
+      toastMsg('JSON parse error: '+err.message, 'error');
+    }
+  };
+  reader.readAsText(file);
+}
+
+const dropArea=document.getElementById('dropArea');
+const fileInput=document.getElementById('fileInput');
+
+dropArea.addEventListener('dragover',e=>{ e.preventDefault(); dropArea.classList.add('dragover'); });
+dropArea.addEventListener('dragleave',()=>dropArea.classList.remove('dragover'));
+dropArea.addEventListener('drop',e=>{ e.preventDefault(); dropArea.classList.remove('dragover'); handleFile(e.dataTransfer.files[0]); });
+fileInput.addEventListener('change',e=>handleFile(e.target.files[0]));
+
+document.getElementById('rerun-btn').addEventListener('click', runAnalysis);
+document.getElementById('an-eps').addEventListener('input',e=>{ document.getElementById('an-eps-val').textContent=e.target.value+' m'; });
+document.getElementById('an-min').addEventListener('input',e=>{ document.getElementById('an-min-val').textContent=e.target.value; });
+document.getElementById('an-speed').addEventListener('input',e=>{ document.getElementById('an-speed-val').textContent=e.target.value+' km/h'; });
+
+document.getElementById('toggleClusters').addEventListener('click',()=>{ mapLayers.clusters=!mapLayers.clusters; drawMap(); });
+document.getElementById('toggleHeatmap').addEventListener('click',()=>{ mapLayers.heatmap=!mapLayers.heatmap; drawMap(); });
+document.getElementById('toggleEps').addEventListener('click',()=>{ mapLayers.epsRings=!mapLayers.epsRings; drawMap(); });
+
+window.addEventListener('resize',()=>{ if(gpsPoints){ drawMap(); drawSpeedChart(); } });
+
+/* ════════════════════════════════
+   HERO CANVAS
+════════════════════════════════ */
+(function(){
+  const canvas=document.getElementById('heroCanvas');
+  const ctx=canvas.getContext('2d');
+  let W,H;
+  const stars=[];
+  for(let i=0;i<200;i++) stars.push({x:Math.random(),y:Math.random(),r:Math.random()*1.4+.3,a:Math.random()});
+
+  const COLS=['#3b82f6','#10b981','#f59e0b','#8b5cf6'];
+  const sats=COLS.map((col,i)=>({
+    angle:(Math.PI*2/4)*i, speed:0.004+Math.random()*0.003,
+    orbitA:0, orbitB:0, col, trail:[]
+  }));
+
+  function resize(){
+    W=canvas.width=canvas.offsetWidth; H=canvas.height=canvas.offsetHeight;
+    const er=Math.min(W,H)*.18;
+    sats.forEach((s,i)=>{ s.orbitA=er*(2.2+i*.4); s.orbitB=er*(.7+i*.2); });
+  }
+  window.addEventListener('resize',resize); resize();
+
+  let t=0;
+  const gpsDots=Array.from({length:60},()=>({ang:Math.random()*Math.PI*2,r:0,a:Math.random(),spd:(Math.random()-.5)*.003}));
+
+  function drawEarth(cx,cy){
+    const r=Math.min(W,H)*.18;
+    gpsDots.forEach(d=>{ d.r=r*(1.05+Math.random()*.005); });
+    const grd=ctx.createRadialGradient(cx-r*.3,cy-r*.3,r*.1,cx,cy,r);
+    grd.addColorStop(0,'#1e40af');grd.addColorStop(.6,'#0f2d5a');grd.addColorStop(1,'#060f24');
+    ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle=grd;ctx.fill();
+    ctx.save();ctx.clip();
+    ctx.fillStyle='rgba(16,185,129,.22)';
+    ctx.beginPath();ctx.ellipse(cx-r*.2,cy-r*.1,r*.35,r*.2,-.5,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.ellipse(cx+r*.3,cy+r*.2,r*.25,r*.15,.8,0,Math.PI*2);ctx.fill();
     ctx.restore();
-
-    const glow = ctx.createRadialGradient(cx,cy,r*.9,cx,cy,r*1.4);
-    glow.addColorStop(0,'rgba(59,130,246,.25)');
-    glow.addColorStop(1,'rgba(59,130,246,0)');
-    ctx.beginPath(); ctx.arc(cx,cy,r*1.4,0,Math.PI*2);
-    ctx.fillStyle = glow; ctx.fill();
+    const gw=ctx.createRadialGradient(cx,cy,r*.9,cx,cy,r*1.4);
+    gw.addColorStop(0,'rgba(59,130,246,.22)');gw.addColorStop(1,'rgba(59,130,246,0)');
+    ctx.beginPath();ctx.arc(cx,cy,r*1.4,0,Math.PI*2);ctx.fillStyle=gw;ctx.fill();
   }
 
   function frame(){
-    ctx.clearRect(0,0,W,H);
-    const cx = W/2, cy = H/2;
-    t += 0.016;
-
-    // Stars
-    stars.forEach(s=>{
-      const flicker = 0.4 + 0.6*Math.abs(Math.sin(t*s.a*2));
-      ctx.beginPath();
-      ctx.arc(s.x*W, s.y*H, s.r, 0, Math.PI*2);
-      ctx.fillStyle = `rgba(255,255,255,${flicker*0.8})`;
-      ctx.fill();
-    });
-
-    // GPS ground dots
-    gpsDots.forEach(d=>{
-      d.ang += d.speed;
-      const x = cx + Math.cos(d.ang)*d.r;
-      const y = cy + Math.sin(d.ang)*d.r*0.4;
-      ctx.beginPath();
-      ctx.arc(x,y,1.5,0,Math.PI*2);
-      ctx.fillStyle = `rgba(59,130,246,${0.3+d.alpha*0.4})`;
-      ctx.fill();
-    });
-
-    drawEarth(cx, cy);
-
-    // Satellites
-    sats.forEach(sat=>{
-      sat.angle += sat.speed;
-      const x = cx + Math.cos(sat.angle)*sat.orbitA;
-      const y = cy + Math.sin(sat.angle)*sat.orbitB;
-
-      sat.trail.push({x,y});
-      if(sat.trail.length > 40) sat.trail.shift();
-
-      // Orbit ring (dashed)
-      ctx.save();
-      ctx.setLineDash([4,8]);
-      ctx.strokeStyle = 'rgba(100,116,139,.2)';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.ellipse(cx, cy, sat.orbitA, sat.orbitB, 0, 0, Math.PI*2);
-      ctx.stroke();
-      ctx.restore();
-
-      // Trail
-      for(let i=1;i<sat.trail.length;i++){
-        const alpha = i/sat.trail.length;
-        ctx.beginPath();
-        ctx.moveTo(sat.trail[i-1].x, sat.trail[i-1].y);
-        ctx.lineTo(sat.trail[i].x, sat.trail[i].y);
-        ctx.strokeStyle = sat.color.replace(')',`,${alpha*0.6})`).replace('rgb','rgba');
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
+    ctx.clearRect(0,0,W,H); t+=.016;
+    const cx=W/2,cy=H/2;
+    stars.forEach(s=>{ const f=.4+.6*Math.abs(Math.sin(t*s.a*2)); ctx.beginPath();ctx.arc(s.x*W,s.y*H,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${f*.7})`;ctx.fill(); });
+    gpsDots.forEach(d=>{ d.ang+=d.spd; const r=Math.min(W,H)*.19; const x=cx+Math.cos(d.ang)*r,y=cy+Math.sin(d.ang)*r*.4; ctx.beginPath();ctx.arc(x,y,1.3,0,Math.PI*2);ctx.fillStyle=`rgba(59,130,246,${.2+d.a*.3})`;ctx.fill(); });
+    drawEarth(cx,cy);
+    sats.forEach(s=>{
+      s.angle+=s.speed;
+      const x=cx+Math.cos(s.angle)*s.orbitA, y=cy+Math.sin(s.angle)*s.orbitB;
+      s.trail.push({x,y}); if(s.trail.length>40) s.trail.shift();
+      ctx.save();ctx.setLineDash([4,8]);ctx.strokeStyle='rgba(100,116,139,.15)';ctx.lineWidth=1;
+      ctx.beginPath();ctx.ellipse(cx,cy,s.orbitA,s.orbitB,0,0,Math.PI*2);ctx.stroke();ctx.restore();
+      for(let i=1;i<s.trail.length;i++){
+        const a=i/s.trail.length;
+        ctx.beginPath();ctx.moveTo(s.trail[i-1].x,s.trail[i-1].y);ctx.lineTo(s.trail[i].x,s.trail[i].y);
+        ctx.strokeStyle=s.col.replace('#','rgba(').replace(/(..)(..)(..)$/,(_,r,g,b)=>`${parseInt(r,16)},${parseInt(g,16)},${parseInt(b,16)},${a*.55})`);
+        ctx.lineWidth=1.5;ctx.stroke();
       }
-
-      // Sat body
-      const glow = ctx.createRadialGradient(x,y,0,x,y,12);
-      glow.addColorStop(0, sat.color+'ff');
-      glow.addColorStop(1, sat.color+'00');
-      ctx.beginPath(); ctx.arc(x,y,12,0,Math.PI*2);
-      ctx.fillStyle = glow; ctx.fill();
-
-      ctx.beginPath(); ctx.arc(x,y,4,0,Math.PI*2);
-      ctx.fillStyle = sat.color; ctx.fill();
-
-      // Signal lines to earth
-      if(Math.sin(sat.angle*3)>0.3){
-        ctx.beginPath();
-        ctx.moveTo(x,y); ctx.lineTo(cx,cy);
-        ctx.strokeStyle = sat.color.replace(')',',0.15)').replace('rgb','rgba');
-        ctx.lineWidth = 1; ctx.setLineDash([3,6]);
-        ctx.stroke(); ctx.setLineDash([]);
+      const gw=ctx.createRadialGradient(x,y,0,x,y,11);
+      gw.addColorStop(0,s.col+'ff');gw.addColorStop(1,s.col+'00');
+      ctx.beginPath();ctx.arc(x,y,11,0,Math.PI*2);ctx.fillStyle=gw;ctx.fill();
+      ctx.beginPath();ctx.arc(x,y,3.5,0,Math.PI*2);ctx.fillStyle=s.col;ctx.fill();
+      if(Math.sin(s.angle*3)>.35){
+        ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(cx,cy);
+        ctx.strokeStyle=s.col+'25';ctx.lineWidth=1;ctx.setLineDash([3,6]);ctx.stroke();ctx.setLineDash([]);
       }
     });
-
     requestAnimationFrame(frame);
   }
   frame();
 })();
 
-/* ─── REALTIME STRIP ─── */
+/* ════════════════════════════════
+   REALTIME STRIP
+════════════════════════════════ */
 (function(){
-  const canvas = document.getElementById('rtCanvas');
-  const ctx = canvas.getContext('2d');
-  const H = 120;
-  canvas.height = H;
-
-  const speedData = [];
-  const maxLen = 200;
-  let pointCount = 0, clusterCount = 0, noiseCount = 0;
-
-  let phase = 0;
-
-  function nextSpeed(){
-    phase += 0.05;
-    const base = 40 + Math.sin(phase)*30 + Math.sin(phase*2.3)*15;
-    return Math.max(0, base + (Math.random()-.5)*10);
-  }
-
-  function resize(){
-    canvas.width = canvas.parentElement.offsetWidth;
-  }
-  window.addEventListener('resize', resize);
-  resize();
-
+  const canvas=document.getElementById('rtCanvas');
+  const ctx=canvas.getContext('2d');
+  canvas.height=110;
+  const data=[]; let phase=0,pts=0,cls=0,noise=0;
+  function resize(){ canvas.width=canvas.parentElement.offsetWidth; }
+  window.addEventListener('resize',resize); resize();
   setInterval(()=>{
-    const s = nextSpeed();
-    speedData.push(s);
-    if(speedData.length > maxLen) speedData.shift();
-    pointCount++;
-    if(s < 5) { clusterCount = Math.min(clusterCount+1, 12); }
-    if(Math.random()<0.05) noiseCount++;
-
-    document.getElementById('stat-points').textContent = pointCount;
-    document.getElementById('stat-speed').textContent = s.toFixed(1);
-    document.getElementById('stat-clusters').textContent = clusterCount;
-    document.getElementById('stat-noise').textContent = noiseCount;
-
-    draw();
-  }, 150);
-
-  function draw(){
-    const W = canvas.width;
+    phase+=.05;
+    const s=Math.max(0,40+Math.sin(phase)*30+Math.sin(phase*2.3)*15+(Math.random()-.5)*10);
+    data.push(s); if(data.length>200) data.shift();
+    pts++; if(s<5){cls=Math.min(cls+1,12);} if(Math.random()<.05) noise++;
+    document.getElementById('stat-points').textContent=pts;
+    document.getElementById('stat-speed').textContent=s.toFixed(1);
+    document.getElementById('stat-clusters').textContent=cls;
+    document.getElementById('stat-noise').textContent=noise;
+    const W=canvas.width,H=110;
     ctx.clearRect(0,0,W,H);
-
-    // Grid
-    ctx.strokeStyle = 'rgba(30,41,59,.8)';
-    ctx.lineWidth = 1;
-    for(let y=0;y<=H;y+=30){
-      ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke();
-    }
-
-    if(speedData.length < 2) return;
-    const max = 100;
-    const step = W / maxLen;
-
-    // Fill
-    ctx.beginPath();
-    ctx.moveTo(0, H);
-    speedData.forEach((v,i)=>{
-      const x = i * step;
-      const y = H - (v/max)*H*0.9 - 5;
-      if(i===0) ctx.lineTo(x,y); else ctx.lineTo(x,y);
-    });
-    ctx.lineTo(speedData.length*step, H);
-    ctx.closePath();
-    const grd = ctx.createLinearGradient(0,0,0,H);
-    grd.addColorStop(0,'rgba(16,185,129,.35)');
-    grd.addColorStop(1,'rgba(16,185,129,.02)');
-    ctx.fillStyle = grd; ctx.fill();
-
-    // Line
-    ctx.beginPath();
-    speedData.forEach((v,i)=>{
-      const x = i*step;
-      const y = H-(v/max)*H*0.9-5;
-      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-    });
-    ctx.strokeStyle = '#10b981'; ctx.lineWidth = 2; ctx.stroke();
-
-    // Highlight low-speed (stay points)
-    speedData.forEach((v,i)=>{
-      if(v<8){
-        const x = i*step;
-        ctx.beginPath(); ctx.arc(x, H-5, 4, 0, Math.PI*2);
-        ctx.fillStyle = '#f59e0b'; ctx.fill();
-      }
-    });
-  }
+    ctx.strokeStyle='rgba(30,41,59,.7)';ctx.lineWidth=1;
+    for(let y=0;y<=H;y+=30){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+    if(data.length<2) return;
+    const step=W/200;
+    ctx.beginPath();ctx.moveTo(0,H);
+    data.forEach((v,i)=>ctx.lineTo(i*step,H-(v/100)*H*.88-5));
+    ctx.lineTo(data.length*step,H);ctx.closePath();
+    const grd=ctx.createLinearGradient(0,0,0,H);grd.addColorStop(0,'rgba(16,185,129,.35)');grd.addColorStop(1,'rgba(16,185,129,.02)');
+    ctx.fillStyle=grd;ctx.fill();
+    ctx.beginPath();data.forEach((v,i)=>{ const x=i*step,y=H-(v/100)*H*.88-5; if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y); });
+    ctx.strokeStyle='#10b981';ctx.lineWidth=2;ctx.stroke();
+    data.forEach((v,i)=>{ if(v<8){ctx.beginPath();ctx.arc(i*step,H-5,3.5,0,Math.PI*2);ctx.fillStyle='#f59e0b';ctx.fill();} });
+  },150);
 })();
 
-/* ─── DBSCAN Interactive Canvas ─── */
+/* ════════════════════════════════
+   DBSCAN DEMO CANVAS
+════════════════════════════════ */
 (function(){
-  const canvas = document.getElementById('dbscanCanvas');
-  const ctx = canvas.getContext('2d');
-  let W, H;
-  let points = [];
-  let clusters = [];
-  let hasRun = false;
+  const canvas=document.getElementById('dbscanCanvas');
+  const ctx=canvas.getContext('2d');
+  let W,H,points=[],clusters=[],hasRun=false;
+  const CLCOLORS=['#3b82f6','#10b981','#f59e0b','#8b5cf6','#ec4899','#f97316','#06b6d4'];
 
   function resize(){
-    const wrap = document.getElementById('dbscan-canvas-wrap');
-    W = canvas.width = wrap.offsetWidth;
-    H = canvas.height = wrap.offsetHeight || wrap.offsetWidth;
-    if(hasRun) runDBSCAN(); else draw();
+    const wrap=document.getElementById('dbscan-canvas-wrap');
+    W=canvas.width=wrap.offsetWidth; H=canvas.height=wrap.offsetHeight||wrap.offsetWidth;
+    if(hasRun) runDemo(); else draw();
   }
-  window.addEventListener('resize', resize);
-  setTimeout(resize, 100);
+  window.addEventListener('resize',resize); setTimeout(resize,100);
 
   function genPoints(){
-    points = [];
-    // Several GPS-like clusters
-    const centers = [
-      {x:.25, y:.3, n:15, spread:.08},
-      {x:.65, y:.25, n:12, spread:.07},
-      {x:.5,  y:.6,  n:18, spread:.10},
-      {x:.2,  y:.7,  n:10, spread:.06},
-      {x:.75, y:.7,  n:14, spread:.08},
-    ];
-    centers.forEach(c=>{
-      for(let i=0;i<c.n;i++){
-        points.push({
-          x: c.x*W + (Math.random()-.5)*c.spread*W,
-          y: c.y*H + (Math.random()-.5)*c.spread*H,
-          cluster: -2, type: 'unvisited'
-        });
-      }
+    points=[];
+    [{x:.25,y:.3,n:15,s:.08},{x:.65,y:.25,n:12,s:.07},{x:.5,y:.6,n:18,s:.1},{x:.2,y:.7,n:10,s:.06},{x:.75,y:.7,n:14,s:.08}].forEach(c=>{
+      for(let i=0;i<c.n;i++) points.push({x:c.x*W+(Math.random()-.5)*c.s*W,y:c.y*H+(Math.random()-.5)*c.s*H,cluster:-2,type:'unvisited'});
     });
-    // Noise
-    for(let i=0;i<8;i++){
-      points.push({ x: Math.random()*W*.9+W*.05, y: Math.random()*H*.9+H*.05, cluster:-2, type:'unvisited' });
-    }
+    for(let i=0;i<8;i++) points.push({x:Math.random()*W*.9+W*.05,y:Math.random()*H*.9+H*.05,cluster:-2,type:'unvisited'});
   }
   genPoints();
 
-  function dist(a,b){ return Math.hypot(a.x-b.x, a.y-b.y); }
+  function ddist(a,b){ return Math.hypot(a.x-b.x,a.y-b.y); }
 
-  function runDBSCAN(){
-    hasRun = true;
-    const eps = +document.getElementById('eps-slider').value;
-    const minPts = +document.getElementById('min-slider').value;
-
-    points.forEach(p=>{ p.cluster=-2; p.type='unvisited'; });
-    let clId = 0;
-
-    function regionQuery(p){ return points.filter(q=>dist(p,q)<=eps); }
-    function expand(p, neighbors, id){
-      p.cluster=id; p.type='core';
-      let queue=[...neighbors];
-      while(queue.length){
-        const q = queue.shift();
-        if(q.type==='unvisited'){
-          q.type='border';
-          const nb = regionQuery(q);
-          if(nb.length>=minPts){ q.type='core'; queue.push(...nb.filter(r=>r.type==='unvisited'||r.type==='noise')); }
-        }
-        if(q.cluster===-2||q.cluster===-1) q.cluster=id;
+  function runDemo(){
+    hasRun=true;
+    const eps=+document.getElementById('eps-slider').value;
+    const minPts=+document.getElementById('min-slider').value;
+    points.forEach(p=>{ p.cluster=-2;p.type='unvisited'; });
+    let clId=0;
+    function nb(p){ return points.filter(q=>ddist(p,q)<=eps); }
+    function expand(p,nbs,id){
+      p.cluster=id;p.type='core';
+      const q=[...nbs];
+      while(q.length){
+        const r=q.shift();
+        if(r.type==='unvisited'){r.type='border';const rb=nb(r);if(rb.length>=minPts){r.type='core';q.push(...rb.filter(x=>x.type==='unvisited'||x.type==='noise'));}}
+        if(r.cluster===-2||r.cluster===-1) r.cluster=id;
       }
     }
-
-    points.forEach(p=>{
-      if(p.type!=='unvisited') return;
-      const nb = regionQuery(p);
-      if(nb.length<minPts){ p.cluster=-1; p.type='noise'; return; }
-      expand(p, nb.filter(q=>q!==p), clId++);
-    });
-
-    clId = Math.max(0,...points.map(p=>p.cluster))+1;
-    const CLCOLORS=['#3b82f6','#10b981','#f59e0b','#8b5cf6','#ec4899','#f97316','#06b6d4'];
-    clusters = [];
+    points.forEach(p=>{ if(p.type!=='unvisited') return; const n=nb(p); if(n.length<minPts){p.cluster=-1;p.type='noise';return;} expand(p,n.filter(q=>q!==p),clId++); });
+    clusters=[];
     for(let i=0;i<clId;i++){
-      const pts = points.filter(p=>p.cluster===i);
-      const cx = pts.reduce((s,p)=>s+p.x,0)/pts.length;
-      const cy = pts.reduce((s,p)=>s+p.y,0)/pts.length;
-      clusters.push({id:i, cx, cy, pts, color: CLCOLORS[i%CLCOLORS.length]});
+      const ps=points.filter(p=>p.cluster===i);
+      if(!ps.length) continue;
+      clusters.push({id:i,cx:ps.reduce((s,p)=>s+p.x,0)/ps.length,cy:ps.reduce((s,p)=>s+p.y,0)/ps.length,count:ps.length,color:CLCOLORS[i%CLCOLORS.length]});
     }
-
-    const nClusters = clusters.length;
-    const nNoise = points.filter(p=>p.cluster===-1).length;
-    const nCore = points.filter(p=>p.type==='core').length;
-    document.getElementById('dbscan-result').innerHTML =
-      `<strong style="color:#10b981">✓ DBSCAN เสร็จสิ้น</strong><br><br>
-       พบ Clusters: <strong style="color:#f59e0b">${nClusters} กลุ่ม</strong><br>
-       Core Points: <strong style="color:#3b82f6">${nCore} จุด</strong><br>
-       Noise / Outliers: <strong style="color:#ef4444">${nNoise} จุด</strong><br><br>
-       <span style="color:#64748b;font-size:.8rem">ε=${eps}px · minPts=${minPts}</span>`;
-
+    const nC=clusters.length,nN=points.filter(p=>p.cluster===-1).length,nCo=points.filter(p=>p.type==='core').length;
+    document.getElementById('dbscan-result').innerHTML=`<strong style="color:#10b981">✓ DBSCAN เสร็จสิ้น</strong><br><br>
+      Clusters: <strong style="color:#f59e0b">${nC} กลุ่ม</strong><br>
+      Core Points: <strong style="color:#3b82f6">${nCo} จุด</strong><br>
+      Noise: <strong style="color:#ef4444">${nN} จุด</strong><br>
+      <span style="color:#475569;font-size:.78rem">ε=${eps}px · minPts=${minPts}</span>`;
     draw();
   }
-
-  const CLCOLORS=['#3b82f6','#10b981','#f59e0b','#8b5cf6','#ec4899','#f97316','#06b6d4'];
 
   function draw(){
     ctx.clearRect(0,0,W,H);
-
-    // Grid
-    ctx.strokeStyle='rgba(30,41,59,.5)'; ctx.lineWidth=1;
-    for(let x=0;x<W;x+=40){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
-    for(let y=0;y<H;y+=40){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
-
-    // Cluster halos
-    clusters.forEach(c=>{
-      const eps = +document.getElementById('eps-slider').value;
-      const grd = ctx.createRadialGradient(c.cx,c.cy,0,c.cx,c.cy,eps*2.5);
-      grd.addColorStop(0,c.color.replace(')',',0.12)').replace('rgb','rgba')+'10');
-      grd.addColorStop(1,'rgba(0,0,0,0)');
-      ctx.beginPath(); ctx.arc(c.cx,c.cy,eps*2.5,0,Math.PI*2);
-      ctx.fillStyle=grd; ctx.fill();
-    });
-
-    // ε ring (on hover — always show for last run)
-    if(hasRun && points.length>0){
-      const eps = +document.getElementById('eps-slider').value;
-      const core = points.find(p=>p.type==='core');
-      if(core){
-        ctx.beginPath(); ctx.arc(core.x,core.y,eps,0,Math.PI*2);
-        ctx.strokeStyle='rgba(255,255,255,.12)'; ctx.lineWidth=1; ctx.setLineDash([4,4]);
-        ctx.stroke(); ctx.setLineDash([]);
-      }
-    }
-
-    // Points
-    points.forEach(p=>{
-      let color, r;
-      if(p.type==='unvisited'){ color='#475569'; r=5; }
-      else if(p.cluster===-1){ color='#ef4444'; r=5; }
-      else {
-        color = CLCOLORS[p.cluster%CLCOLORS.length];
-        r = p.type==='core' ? 7 : 5;
-      }
-      if(p.type==='core'){
-        ctx.beginPath(); ctx.arc(p.x,p.y,r+4,0,Math.PI*2);
-        ctx.fillStyle=color+'33'; ctx.fill();
-      }
-      ctx.beginPath(); ctx.arc(p.x,p.y,r,0,Math.PI*2);
-      ctx.fillStyle=color; ctx.fill();
-      ctx.strokeStyle='rgba(0,0,0,.4)'; ctx.lineWidth=1; ctx.stroke();
-    });
-
-    // Cluster centers
-    clusters.forEach(c=>{
-      ctx.beginPath(); ctx.arc(c.cx,c.cy,10,0,Math.PI*2);
-      ctx.fillStyle='#f59e0b33'; ctx.fill();
-      ctx.strokeStyle='#f59e0b'; ctx.lineWidth=2; ctx.stroke();
-      ctx.fillStyle='#f59e0b'; ctx.font='bold 10px sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
-      ctx.fillText('C'+(c.id+1),c.cx,c.cy);
-    });
+    ctx.strokeStyle='rgba(30,41,59,.45)';ctx.lineWidth=1;
+    for(let x=0;x<W;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+    for(let y=0;y<H;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+    const eps=+document.getElementById('eps-slider').value;
+    clusters.forEach(c=>{ const g=ctx.createRadialGradient(c.cx,c.cy,0,c.cx,c.cy,eps*2.2); g.addColorStop(0,c.color+'18');g.addColorStop(1,'rgba(0,0,0,0)'); ctx.beginPath();ctx.arc(c.cx,c.cy,eps*2.2,0,Math.PI*2);ctx.fillStyle=g;ctx.fill(); });
+    if(hasRun){ const co=points.find(p=>p.type==='core'); if(co){ctx.beginPath();ctx.arc(co.x,co.y,eps,0,Math.PI*2);ctx.strokeStyle='rgba(255,255,255,.1)';ctx.lineWidth=1;ctx.setLineDash([4,4]);ctx.stroke();ctx.setLineDash([]);} }
+    points.forEach(p=>{ let col,r; if(p.type==='unvisited'){col='#475569';r=5;}else if(p.cluster===-1){col='#ef4444';r=5;}else{col=CLCOLORS[p.cluster%CLCOLORS.length];r=p.type==='core'?7:5;} if(p.type==='core'){ctx.beginPath();ctx.arc(p.x,p.y,r+4,0,Math.PI*2);ctx.fillStyle=col+'30';ctx.fill();} ctx.beginPath();ctx.arc(p.x,p.y,r,0,Math.PI*2);ctx.fillStyle=col;ctx.fill();ctx.strokeStyle='rgba(0,0,0,.4)';ctx.lineWidth=1;ctx.stroke(); });
+    clusters.forEach(c=>{ ctx.beginPath();ctx.arc(c.cx,c.cy,10,0,Math.PI*2);ctx.fillStyle='#f59e0b33';ctx.fill();ctx.strokeStyle='#f59e0b';ctx.lineWidth=2;ctx.stroke();ctx.fillStyle='#f59e0b';ctx.font='bold 10px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('C'+(c.id+1),c.cx,c.cy); });
   }
 
-  draw();
+  document.getElementById('run-btn').addEventListener('click',runDemo);
+  document.getElementById('reset-btn').addEventListener('click',()=>{ hasRun=false;clusters=[];genPoints(); document.getElementById('dbscan-result').innerHTML='คลิก <strong style="color:#60a5fa">Run DBSCAN</strong> เพื่อดูผลลัพธ์'; draw(); });
+  document.getElementById('add-btn').addEventListener('click',()=>{ for(let i=0;i<8;i++) points.push({x:Math.random()*W*.85+W*.075,y:Math.random()*H*.85+H*.075,cluster:-2,type:'unvisited'}); hasRun=false;clusters=[];draw(); });
+  document.getElementById('eps-slider').addEventListener('input',e=>{ document.getElementById('eps-val').textContent=e.target.value+'px'; if(hasRun) runDemo(); });
+  document.getElementById('min-slider').addEventListener('input',e=>{ document.getElementById('min-val').textContent=e.target.value; if(hasRun) runDemo(); });
 
-  document.getElementById('run-btn').addEventListener('click', runDBSCAN);
-  document.getElementById('reset-btn').addEventListener('click', ()=>{
-    hasRun=false; clusters=[];
-    genPoints();
-    document.getElementById('dbscan-result').innerHTML = 'คลิก <strong style="color:#60a5fa">Run DBSCAN</strong> เพื่อดูผลลัพธ์<br>หรือปรับ ε และ minPts แล้วลองใหม่';
-    draw();
-  });
-  document.getElementById('add-btn').addEventListener('click', ()=>{
-    for(let i=0;i<8;i++){
-      points.push({ x:Math.random()*W*.85+W*.075, y:Math.random()*H*.85+H*.075, cluster:-2, type:'unvisited' });
-    }
-    hasRun=false; clusters=[];
-    draw();
-  });
-
-  document.getElementById('eps-slider').addEventListener('input', e=>{
-    document.getElementById('eps-val').textContent = e.target.value+'px';
-    if(hasRun) runDBSCAN();
-  });
-  document.getElementById('min-slider').addEventListener('input', e=>{
-    document.getElementById('min-val').textContent = e.target.value;
-    if(hasRun) runDBSCAN();
-  });
-
-  // 3D hover on step cards
   document.querySelectorAll('.step-3d').forEach(el=>{
-    el.addEventListener('mousemove', e=>{
-      const r = el.getBoundingClientRect();
-      const x = (e.clientX - r.left)/r.width - .5;
-      const y = (e.clientY - r.top)/r.height - .5;
-      el.style.transform = `rotateY(${x*16}deg) rotateX(${-y*10}deg) translateY(-4px)`;
-    });
-    el.addEventListener('mouseleave', ()=>{ el.style.transform=''; });
+    el.addEventListener('mousemove',e=>{ const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5; el.style.transform=`rotateY(${x*16}deg) rotateX(${-y*10}deg) translateY(-4px)`; });
+    el.addEventListener('mouseleave',()=>el.style.transform='');
   });
 })();
 </script>
